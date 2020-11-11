@@ -46,14 +46,14 @@ public class Booking {
     /*public Booking() {
     }
 
-    public Booking(Long id_booking, Date check_in, Date check_out, Date created_at, Boolean breakfast_included, Boolean parking, Boolean free_cancelation, Double cost, Room room, User guest) {
+    public Booking(Long id_booking, Date check_in, Date check_out, Date created_at, Boolean breakfast_included, Boolean parking, Boolean free_cancellation, Double cost, Room room, User guest) {
         this.id_booking = id_booking;
         this.check_in = check_in;
         this.check_out = check_out;
         this.created_at = created_at;
         this.breakfast_included = breakfast_included;
         this.parking = parking;
-        this.free_cancelation = free_cancelation;
+        this.free_cancellation = free_cancellation;
         this.cost = cost;
         this.room = room;
         this.guest = guest;
