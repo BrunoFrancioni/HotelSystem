@@ -29,8 +29,8 @@ public class Booking {
     @Column(nullable = false, name = "parking")
     private Boolean parking;
 
-    @Column(nullable = false, name = "free_cancelation")
-    private Boolean free_cancelation;
+    @Column(nullable = false, name = "free_cancellation")
+    private Boolean free_cancellation;
 
     @Column(nullable = false, name = "cost")
     private Double cost;
@@ -107,12 +107,12 @@ public class Booking {
         this.parking = parking;
     }
 
-    public Boolean getFree_cancelation() {
-        return free_cancelation;
+    public Boolean getFree_cancellation() {
+        return free_cancellation;
     }
 
-    public void setFree_cancelation(Boolean free_cancelation) {
-        this.free_cancelation = free_cancelation;
+    public void setFree_cancellation(Boolean free_cancellation) {
+        this.free_cancellation = free_cancellation;
     }
 
     public Double getCost() {
@@ -150,7 +150,7 @@ public class Booking {
                 created_at.equals(booking.created_at) &&
                 breakfast_included.equals(booking.breakfast_included) &&
                 parking.equals(booking.parking) &&
-                free_cancelation.equals(booking.free_cancelation) &&
+                free_cancellation.equals(booking.free_cancellation) &&
                 cost.equals(booking.cost) &&
                 room.equals(booking.room) &&
                 guest.equals(booking.guest);
@@ -158,6 +158,6 @@ public class Booking {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_booking, check_in, check_out, created_at, breakfast_included, parking, free_cancelation, cost, room, guest);
+        return Objects.hash(id_booking, check_in, check_out, created_at, breakfast_included, parking, free_cancellation, cost, room, guest);
     }
 }
