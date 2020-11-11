@@ -16,7 +16,7 @@ public class Payment {
     @Column(nullable = false, name = "created_at")
     private Date created_at;
 
-    @Column(nullable = false, name = "card", lengh = 100)
+    @Column(nullable = false, name = "card", length = 100)
     private String card;
 
     @Column(nullable = false, name = "card_number", length = 50)

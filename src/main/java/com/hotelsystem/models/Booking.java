@@ -36,11 +36,11 @@ public class Booking {
     private Double cost;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_room")
+    @JoinColumn(name = "room")
     private Room room;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_user")
+    @JoinColumn(name = "guest")
     private User guest;
 
     /*public Booking() {
