@@ -15,13 +15,19 @@ public class Booking {
     private Long id_booking;
 
     @Column(nullable = false, name = "check_in")
-    private Date check_in;
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private java.util.Date check_in;
 
     @Column(nullable = false, name = "check_out")
-    private Date check_out;
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private java.util.Date check_out;
 
     @Column(nullable = false, name = "created_at")
-    private Date created_at;
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private java.util.Date created_at;
 
     @Column(nullable = false, name = "breakfast_included")
     private Boolean breakfast_included;

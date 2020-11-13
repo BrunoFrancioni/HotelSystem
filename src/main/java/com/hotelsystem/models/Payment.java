@@ -14,7 +14,9 @@ public class Payment {
     private Long id_payment;
 
     @Column(nullable = false, name = "created_at")
-    private Date created_at;
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private java.util.Date created_at;
 
     @Column(nullable = false, name = "card", length = 100)
     private String card;

@@ -14,7 +14,9 @@ public class Cancellation {
     private Long id_cancellation;
 
     @Column(nullable = false, name = "created_at")
-    private Date created_at;
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private java.util.Date created_at;
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_booking")
