@@ -43,6 +43,9 @@ public class Booking {
     @JoinColumn(name = "guest")
     private User guest;
 
+    @OneToOne(mappedBy = "booking", fetch = FetchType.LAZY)
+    private Payment payment;
+
     /*public Booking() {
     }
 
