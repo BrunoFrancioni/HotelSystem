@@ -39,10 +39,13 @@ public class User {
     @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<Booking>();
 
+    @Version
+    private Integer version;
+
     public User() {
     }
 
-    public User(Long id_user, String email, String password, String first_name, String last_name, Date birthdate, String nationality) {
+    public User(Long id_user, String email, String password, String first_name, String last_name, Date birthdate, String nationality, Integer version) {
         this.id_user = id_user;
         this.email = email;
         this.password = password;
@@ -50,6 +53,7 @@ public class User {
         this.last_name = last_name;
         this.birthdate = birthdate;
         this.nationality = nationality;
+        this.version = version;
     }
 
     public Long getId_user() {
@@ -108,6 +112,10 @@ public class User {
         this.nationality = nationality;
     }
 
+    public Integer getVersion() {return version;}
+
+    public void setVersion(Integer version) {this.version = version;}
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -119,11 +127,12 @@ public class User {
                 first_name.equals(user.first_name) &&
                 last_name.equals(user.last_name) &&
                 birthdate.equals(user.birthdate) &&
-                nationality.equals(user.nationality);
+                nationality.equals(user.nationality) &&
+                version.equals(user.version);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_user, email, password, first_name, last_name, birthdate, nationality);
+        return Objects.hash(id_user, email, password, first_name, last_name, birthdate, nationality, version);
     }
 }

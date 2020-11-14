@@ -35,16 +35,20 @@ public class Room {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<Booking>();
 
+    @Version
+    private Integer version;
+
     public Room() {
     }
 
-    public Room(Long id_room, String name, Double price, Integer occupancy, Boolean availability, String facilities) {
+    public Room(Long id_room, String name, Double price, Integer occupancy, Boolean availability, String facilities, Integer version) {
         this.id_room = id_room;
         this.name = name;
         this.price = price;
         this.occupancy = occupancy;
         this.availability = availability;
         this.facilities = facilities;
+        this.version = version;
     }
 
     public Long getId_room() {
@@ -95,6 +99,10 @@ public class Room {
         this.facilities = facilities;
     }
 
+    public Integer getVersion() { return version; }
+
+    public void setVersion(Integer version) { this.version = version; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -105,11 +113,12 @@ public class Room {
                 price.equals(room.price) &&
                 occupancy.equals(room.occupancy) &&
                 availability.equals(room.availability) &&
-                Objects.equals(facilities, room.facilities);
+                Objects.equals(facilities, room.facilities) &&
+                version.equals(room.version);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_room, name, price, occupancy, availability, facilities);
+        return Objects.hash(id_room, name, price, occupancy, availability, facilities, version);
     }
 }
