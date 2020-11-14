@@ -35,7 +35,7 @@ public class Room {
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<Booking>();
 
-    /*public Room() {
+    public Room() {
     }
 
     public Room(Long id_room, String name, Double price, Integer occupancy, Boolean availability, String facilities) {
@@ -45,7 +45,7 @@ public class Room {
         this.occupancy = occupancy;
         this.availability = availability;
         this.facilities = facilities;
-    }*/
+    }
 
     public Long getId_room() {
         return id_room;

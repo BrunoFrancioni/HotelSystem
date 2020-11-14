@@ -39,7 +39,7 @@ public class User {
     @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
     private List<Booking> bookings = new ArrayList<Booking>();
 
-    /*public User() {
+    public User() {
     }
 
     public User(Long id_user, String email, String password, String first_name, String last_name, Date birthdate, String nationality) {
@@ -50,7 +50,7 @@ public class User {
         this.last_name = last_name;
         this.birthdate = birthdate;
         this.nationality = nationality;
-    }*/
+    }
 
     public Long getId_user() {
         return id_user;

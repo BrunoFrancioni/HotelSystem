@@ -52,7 +52,7 @@ public class Booking {
     @OneToOne(mappedBy = "booking", fetch = FetchType.LAZY)
     private Payment payment;
 
-    /*public Booking() {
+    public Booking() {
     }
 
     public Booking(Long id_booking, Date check_in, Date check_out, Date created_at, Boolean breakfast_included, Boolean parking, Boolean free_cancellation, Double cost, Room room, User guest) {
@@ -66,7 +66,7 @@ public class Booking {
         this.cost = cost;
         this.room = room;
         this.guest = guest;
-    }*/
+    }
 
     public Long getId_booking() {
         return id_booking;
