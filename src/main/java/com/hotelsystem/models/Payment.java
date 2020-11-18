@@ -14,6 +14,9 @@ public class Payment {
     @GenericGenerator(name = "native", strategy = "native")
     private Long id_payment;
 
+    @Version
+    private Integer version;
+
     @Column(nullable = false, name = "created_at")
     @Basic
     @Temporal(TemporalType.DATE)
@@ -76,9 +79,11 @@ public class Payment {
         return booking;
     }
 
-    public void setBooking(Booking booking) {
-        this.booking = booking;
-    }
+    public void setBooking(Booking booking) {this.booking = booking;}
+
+    public Integer getVersion() {return version;}
+
+    public void setVersion(Integer version) {this.version = version;}
 
     @Override
     public boolean equals(Object o) {
@@ -89,11 +94,12 @@ public class Payment {
                 created_at.equals(payment.created_at) &&
                 card.equals(payment.card) &&
                 card_number.equals(payment.card_number) &&
-                booking.equals(payment.booking);
+                booking.equals(payment.booking) &&
+                version.equals(payment.version);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_payment, created_at, card, card_number, booking);
+        return Objects.hash(id_payment, created_at, card, card_number, booking, version);
     }
 }

@@ -52,10 +52,13 @@ public class Booking {
     @OneToOne(mappedBy = "booking", fetch = FetchType.LAZY)
     private Payment payment;
 
+    @Version
+    private Integer version;
+
     public Booking() {
     }
 
-    public Booking(Long id_booking, Date check_in, Date check_out, Date created_at, Boolean breakfast_included, Boolean parking, Boolean free_cancellation, Double cost, Room room, User guest) {
+    public Booking(Long id_booking, Date check_in, Date check_out, Date created_at, Boolean breakfast_included, Boolean parking, Boolean free_cancellation, Double cost, Room room, User guest, Integer version) {
         this.id_booking = id_booking;
         this.check_in = check_in;
         this.check_out = check_out;
@@ -66,6 +69,7 @@ public class Booking {
         this.cost = cost;
         this.room = room;
         this.guest = guest;
+        this.version = version;
     }
 
     public Long getId_booking() {
@@ -116,9 +120,7 @@ public class Booking {
         this.parking = parking;
     }
 
-    public Boolean getFree_cancellation() {
-        return free_cancellation;
-    }
+    public Boolean getFree_cancellation() {return free_cancellation; }
 
     public void setFree_cancellation(Boolean free_cancellation) {
         this.free_cancellation = free_cancellation;
@@ -148,6 +150,10 @@ public class Booking {
         this.guest = guest;
     }
 
+    public Integer getVersion() { return version; }
+
+    public void setVersion(Integer version) { this.version = version; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -162,11 +168,12 @@ public class Booking {
                 free_cancellation.equals(booking.free_cancellation) &&
                 cost.equals(booking.cost) &&
                 room.equals(booking.room) &&
-                guest.equals(booking.guest);
+                guest.equals(booking.guest) &&
+                version.equals(booking.version);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_booking, check_in, check_out, created_at, breakfast_included, parking, free_cancellation, cost, room, guest);
+        return Objects.hash(id_booking, check_in, check_out, created_at, breakfast_included, parking, free_cancellation, cost, room, guest, version);
     }
 }

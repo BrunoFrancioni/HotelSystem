@@ -23,6 +23,9 @@ public class Cancellation {
     @JoinColumn(name = "id_booking")
     private Booking booking;
 
+    @Version
+    private Integer version;
+
     public Cancellation() {
     }
 
@@ -56,18 +59,23 @@ public class Cancellation {
         this.booking = booking;
     }
 
+    public Integer getVersion() { return version; }
+
+    public void setVersion(Integer version) { this.version = version; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Cancellation that = (Cancellation) o;
-        return id_cancellation.equals(that.id_cancellation) &&
-                created_at.equals(that.created_at) &&
-                booking.equals(that.booking);
+        Cancellation cancellation = (Cancellation) o;
+        return id_cancellation.equals(cancellation.id_cancellation) &&
+                created_at.equals(cancellation.created_at) &&
+                booking.equals(cancellation.booking) &&
+                version.equals(cancellation.version);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_cancellation, created_at, booking);
+        return Objects.hash(id_cancellation, created_at, booking, version);
     }
 }
