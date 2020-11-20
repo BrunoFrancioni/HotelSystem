@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rooms CRUD</title>
+    <title>Create Room</title>
 
     <!-- Bootstrap CSS -->
     <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
@@ -10,7 +10,7 @@
 <body>
     <div class="container">
         <br>
-        <h2>Add Room</h2>
+        <h2>Create Room</h2>
         <form action="#" th:action="@{/save}" th:object="${room}" method="post">
             <input type="hidden" th:field="*{id_room}" name="id_room" id="id_room">
 
@@ -42,7 +42,7 @@
                 <input type="text" class="form-control" id="facilities" th:field="*{facilities}" name="facilities">
             </div>
 
-            <button type="submit" class="btn btn-success">Save</button>
+            <button type="submit" class="btn btn-success">Create</button>
         </form>
     </div>
 </body>
