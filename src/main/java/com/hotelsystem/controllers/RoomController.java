@@ -16,7 +16,7 @@ public class RoomController {
     public String index(Model model) {
         model.addAttribute("list", roomServiceAPI.getAll());
 
-        return "index";
+        return "roomList";
     }
 
     @GetMapping("/save/{id}")
@@ -27,7 +27,7 @@ public class RoomController {
             model.addAttribute("room", new Room());
         }
 
-        return "save";
+        return "roomSave";
     }
 
     @PostMapping("/save")
