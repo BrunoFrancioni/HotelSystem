@@ -1,25 +1,17 @@
 package com.hotelsystem.controllers;
 
-import com.hotelsystem.dao.RoomDAO;
 import com.hotelsystem.models.Room;
+import com.hotelsystem.services.api.RoomServiceAPI;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("room")
+@Controller
 public class RoomController {
     @Autowired
-    private RoomDAO roomDAO;
+    private RoomServiceAPI roomServiceAPI;
 
-    @PostMapping("/save")
-    public void save(@RequestBody Room room) {
-        roomDAO.save(room);
-    }
 
-    @GetMapping("/list")
-    public List<Room> listAll() {
-        return roomDAO.findAll();
-    }
 }
