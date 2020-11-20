@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking</title>
+
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+    <h1>Find deals on room and much more...</h1>
+
+    <table>
+        <tr>
+            <th>Name</th>
+            <th></th>
+        </tr>
+        <tr th:each="room : ${availabilities}">
+            <td th:text="${room.name}"></td>
+            <td>
+                <a th:href="@{/rooms/{id}(id=${room.id_room})}">view</a>
+            </td>
+        </tr>
+    </table>
+    <hr/>
+    <form th:action="@{/}" method="post" enctype="multipart/form-data">
+        <div>
+            From: <input name="from" />
+        </div>
+        <div>
+            To: <input name="to" />
+        </div>
+        <div>
+            People: <input name="people" />
+        </div>
+        <div>
+            <input type="submit" value="Check availability" name="button"/>
+        </div>
+    </form>
+</body>
+</html>

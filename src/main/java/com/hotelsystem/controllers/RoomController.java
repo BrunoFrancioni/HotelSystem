@@ -1,7 +1,7 @@
 package com.hotelsystem.controllers;
 
 import com.hotelsystem.models.Room;
-import com.hotelsystem.services.api.RoomServiceAPI;
+import com.hotelsystem.services.RoomServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class RoomController {
     @Autowired
-    private RoomServiceAPI roomServiceAPI;
+    private RoomServices roomServices;
 
     @RequestMapping("/")
     public String index(Model model) {
@@ -32,12 +32,16 @@ public class RoomController {
 
     @PostMapping("/save")
     public String save(Room room, Model model) {
-        roomServiceAPI.save(room);
+        boolean result = roomServices.save(room);
 
-        return "redirect:/";
+        if(result) {
+            return "redirect:/";
+        }
+
+        return "/save/error";
     }
 
-    @GetMapping("/delete")
+    @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id, Model model) {
         roomServiceAPI.delete(id);
 
