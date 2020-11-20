@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rooms</title>
+
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+    <div class="container">
+        <br>
+        <div>
+            <a href="/save/0" class="btn btn-primary">Add</a>
+        </div>
+        <h2 th:if="${list.isEmpty()}">No rooms</h2>
+        <div th:if="${!list.isEmpty()}">
+            <h2>Rooms</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Availability</th>
+                        <th>Price</th>
+                        <th>Occupancy</th>
+                        <th>Facilities</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="room : ${list}">
+                        <td th:text="${room.name}">
+                        <td th:text="${room.availability}">
+                        <td th:text="${room.price}">
+                        <td th:text="${room.occupancy}">
+                        <td th:text="${room.facilities}">
+                        <td><a class="btn btn-info" th:href="@{/save/{id}(id=${room.id_room})}">Edit</a></td>
+                        <td><a class="btn btn-danger" th:href="@{/delete/{id}(id=${room.id_room})}">Delete</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
