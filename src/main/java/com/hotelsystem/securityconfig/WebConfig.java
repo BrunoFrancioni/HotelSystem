@@ -3,29 +3,37 @@ package com.hotelsystem.securityconfig;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
 @Configuration
+@EnableWebSecurity
 public class WebConfig extends WebSecurityConfigurerAdapter {
+
+    String[] resources = new String[]{
+            "/include/","/css/","/icons/","/img/","/js/","/layer/"
+    };
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
-        http.httpBasic()
-                .and()
+    protected void configure(HttpSecurity http) throws Exception {
+        http
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET, "/room/").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/room/").permitAll()
-                .antMatchers(HttpMethod.PUT, "/room/").permitAll()
-                .antMatchers(HttpMethod.POST, "/room/").permitAll()
-                .antMatchers(HttpMethod.GET, "/user/").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/user/").permitAll()
-                .antMatchers(HttpMethod.PUT, "/user/").permitAll()
-                .antMatchers(HttpMethod.POST, "/user/").permitAll()
-                .antMatchers(HttpMethod.GET, "/booking/").permitAll()
-                .antMatchers(HttpMethod.DELETE, "/booking/").permitAll()
-                .antMatchers(HttpMethod.PUT, "/booking/").permitAll()
-                .antMatchers(HttpMethod.POST, "/booking/").permitAll()
+                .antMatchers(resources).permitAll()
+                .antMatchers("/","/index","/login", "/booking","booking/checkBooking","booking/check").permitAll()
+                /*.antMatchers("/userManag").access("hasRole('ADMIN')")
+                .antMatchers("/roomManag").access("hasRole('ADMIN')")*/
+                .anyRequest().authenticated()
                 .and()
-                .csrf().disable()
-                .formLogin().disable();
+                .formLogin()
+                .loginPage("/")
+                .permitAll()
+                .defaultSuccessUrl("/booking/checkBooking")
+                .failureUrl("/login?error=true")
+                .usernameParameter("email")
+                .passwordParameter("password")
+                .and()
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/login?logout");
     }
 }
