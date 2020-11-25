@@ -1,0 +1,63 @@
+body {
+    background: url(../img/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.main-section {
+    margin:0 auto;
+    margin-top:50%;
+    padding: 0;
+}
+
+.modal-content {
+    background-color: #3b4652;
+    opacity: .85;
+    padding: 0 20px;
+    box-shadow: 0px 0px 3px #848484;
+}
+
+.welcome-txt {
+    color: white;
+    font-family: "Font Awesome\ 5 Free";
+    font-size: x-large;
+}
+
+.hotel-img img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.button-check-booking {
+    font-family: "Font Awesome\ 5 Free";
+    color: white;
+    width: 60%;
+    margin: 30px 0 5px;
+    background: #0f6674;
+}
+
+.button-check-booking:active {
+    background:red;
+    color: blue;
+}
+
+.button-login {
+    font-family: "Font Awesome\ 5 Free";
+    color: black;
+    width: 60%;
+    margin: 30px 0 5px;
+    background: #9fcdff;
+}
+
+.button-login:active {
+    background: black;
+    color: white;
+}
+
+.forgot {
+    padding: 5px 0;
+}
+
+.forgot a {
+    color: white;
+}
