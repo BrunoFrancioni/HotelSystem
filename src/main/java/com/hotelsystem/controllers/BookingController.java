@@ -1,12 +1,12 @@
 package com.hotelsystem.controllers;
 
-import com.hotelsystem.services.BookingServices;
-import com.hotelsystem.utils.DateParser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import com.hotelsystem.utils.DateParser;
+import com.hotelsystem.services.BookingServices;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

@@ -11,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebConfig extends WebSecurityConfigurerAdapter {
 
     String[] resources = new String[]{
-            "/include/","/css/","/icons/","/img/","/js/","/layer/"
+            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/"
     };
 
     @Override
@@ -25,7 +25,7 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/")
+                .loginPage("/booking")
                 .permitAll()
                 .defaultSuccessUrl("/booking/checkBooking")
                 .failureUrl("/login?error=true")

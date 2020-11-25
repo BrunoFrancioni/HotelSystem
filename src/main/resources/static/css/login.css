@@ -42,11 +42,11 @@ body {
     padding-top:4px;
 }
 
-.form-group#user-group::before {
+.form-group#email-group::before {
     content: "\f007";
 }
 
-.form-group#contrasena-group::before {
+.form-group#password-group::before {
     content: "\f023";
 }
 
