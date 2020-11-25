@@ -12,21 +12,21 @@ public class RoomController {
     @Autowired
     private RoomServices roomServices;
 
-    @RequestMapping("/")
+    @RequestMapping("/room")
     public String index(Model model) {
         model.addAttribute("list", roomServices.findAll());
 
         return "roomList";
     }
 
-    @GetMapping("/save")
+    @GetMapping("/room/save")
     public String showSave(Model model) {
         model.addAttribute("room", new Room());
 
         return "roomSave";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/room/save")
     public String save(Room room, Model model) {
         boolean result = roomServices.createRoom(room);
 
@@ -37,14 +37,14 @@ public class RoomController {
         return "/save/error";
     }
 
-    @GetMapping("update/{id}")
+    @GetMapping("/room/update/{id}")
     public String showUpdate(@PathVariable("id") Long id, Model model) {
         model.addAttribute("room", roomServices.getRoomById(id));
 
         return "/roomUpdate";
     }
 
-    @PostMapping("/update")
+    @PostMapping("/room/update")
     public String update(Room room, Model model){
         boolean result = roomServices.updateRoom(room);
 
@@ -55,7 +55,7 @@ public class RoomController {
         return "redirect:/";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/room/delete/{id}")
     public String delete(@PathVariable Long id, Model model) {
         boolean result = roomServices.deleteRoom(id);
 
