@@ -1,16 +1,15 @@
 package com.hotelsystem.models;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
@@ -42,6 +41,10 @@ public class User {
     @Version
     private Integer version;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "authority_user", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_authority"))
+    private Set<Authority> authority;
+
     public User() {
     }
 
@@ -54,6 +57,32 @@ public class User {
         this.birthdate = birthdate;
         this.nationality = nationality;
         this.version = version;
+    }
+
+    public User(String email, String password, Collection<? extends GrantedAuthority> authorities){
+        this.email=email;
+        this.password=password;
+        for(GrantedAuthority a :authorities){
+            authority.add((Authority) a);
+        }
+    }
+
+    /*public Collection<? extends GrantedAuthority> getAuthorities(){
+        Collection<GrantedAuthority> list = new ArrayList<>();
+        for (Authority a : authority){
+            list.add(a);
+        }
+        return list;
+    }*/
+
+    public void setAuthorities(Authority a){
+        authority.add(a);
+    }
+
+    public void setAuthorities(List<Authority> list){
+        for(Authority a : list){
+            authority.add(a);
+        }
     }
 
     public Long getId_user() {
@@ -74,6 +103,31 @@ public class User {
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 
     public void setPassword(String password) {
@@ -135,4 +189,5 @@ public class User {
     public int hashCode() {
         return Objects.hash(id_user, email, password, first_name, last_name, birthdate, nationality, version);
     }
+
 }

@@ -12,7 +12,7 @@ public class RoomController {
     @Autowired
     private RoomServices roomServices;
 
-    @RequestMapping("/room")
+    @GetMapping("/room")
     public String index(Model model) {
         model.addAttribute("list", roomServices.findAll());
 
