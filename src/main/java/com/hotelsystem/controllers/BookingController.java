@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.hotelsystem.utils.DateParser;
 import com.hotelsystem.services.BookingServices;
@@ -26,12 +27,16 @@ public class BookingController {
         SimpleDateFormat date = new SimpleDateFormat(dateFormat);
         String todayString = date.format(today);
 
+        Integer tomorrowDate = Integer.parseInt(todayString.substring(8)) + 1;
+        String tomorrow = todayString.substring(0,8) + tomorrowDate;
+
         model.addAttribute("dateToday", todayString);
+        model.addAttribute("dateTomorrow", tomorrow);
 
         return "checkBooking";
     }
 
-    @GetMapping("/booking/check")
+    @PostMapping("/booking/check")
     public String checkAvailables(@RequestParam String from, @RequestParam String to, @RequestParam String guests, Model model) throws ParseException {
         Date fromDate = dateParser.parseDate(from);
         Date toDate = dateParser.parseDate(to);

@@ -22,10 +22,10 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/","/index","/login", "/booking","booking/checkBooking","booking/check").permitAll()
                 /*.antMatchers("/userManag").access("hasRole('ADMIN')")
                 .antMatchers("/roomManag").access("hasRole('ADMIN')")*/
-                .anyRequest().authenticated()
+               /* .anyRequest().authenticated()*/
                 .and()
                 .formLogin()
-                .loginPage("/booking")
+                .loginPage("/login")
                 .permitAll()
                 .defaultSuccessUrl("/booking/checkBooking")
                 .failureUrl("/login?error=true")

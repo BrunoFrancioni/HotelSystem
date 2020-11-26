@@ -7,29 +7,31 @@
     <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
 </head>
 <body>
-    <form action="#" th:action="@{/booking/check}" method="get">
-        <div class="form-group">
-            <label for="check_in">Check In</label>
-            <input type="date" class="form-control" id="check_in" min="dateToday">
-        </div>
+    <div class="container">
+        <form action="#" th:action="@{/booking/check}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="from">Check In</label>
+                <input type="date" class="form-control" name="from" id="from" th:min="${dateToday}" th:value="${dateToday}">
+            </div>
 
-        <div class="form-group">
-            <label for="check_out">Check Out</label>
-            <input type="date" class="form-control" id="check_out">
-        </div>
+            <div class="form-group">
+                <label for="to">Check Out</label>
+                <input type="date" class="form-control" name="to" id="to" th:min="${dateTomorrow}">
+            </div>
 
-        <div class="form-group form-check">
-            <label for="occupancy">Occupancy</label>
-            <select class="form-control" id="occupancy">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-            </select>
-        </div>
+            <div class="form-group form-check">
+                <label for="guests">Occupancy</label>
+                <select class="form-control" name="guests" id="guests">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+            </div>
 
-        <button type="submit" class="btn btn-primary">Filter</button>
-    </form>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
 </body>
 </html>
