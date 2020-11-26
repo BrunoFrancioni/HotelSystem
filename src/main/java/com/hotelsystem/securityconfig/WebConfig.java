@@ -25,10 +25,17 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(resources).permitAll()
+<<<<<<< HEAD
                 .antMatchers("/","/index","/login","booking/checkBooking","booking/check").permitAll()
                 .antMatchers("/userManag").access("hasRole('ADMIN')")
                 .antMatchers("/roomManag").access("hasRole('ADMIN')")
                 .antMatchers("/loginsuccess").access("hasRole('ADMIN') or hasRole('USER')")
+=======
+                .antMatchers("/","/index","/login", "/booking","booking/checkBooking","booking/check").permitAll()
+                /*.antMatchers("/userManag").access("hasRole('ADMIN')")
+                .antMatchers("/roomManag").access("hasRole('ADMIN')")*/
+               /* .anyRequest().authenticated()*/
+>>>>>>> 1bdb08d84af312248b5bbbc62a16a24179b8b197
                 .and()
                 .formLogin()
                 .loginPage("/login")
