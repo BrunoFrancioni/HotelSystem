@@ -1,31 +1,19 @@
 package com.hotelsystem.controllers;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class LoginController {
-    @GetMapping("/login")
+
+    @GetMapping({"/","/login"})
     public String index() {
-        return "login";
+        return "index";
     }
 
-    @PostMapping("/loginsuccess")
-    public String login(@RequestParam String email, @RequestParam String password, Model model) {
-        return "loginSuccessful";
+    @GetMapping("/menu")
+    public String hello() {
+        return "menu";
     }
 
-
-
-    @GetMapping("/userMan")
-    public String userManag() {
-        return "userList";
-    }
-
-    @GetMapping("/roomMan")
-    public String roomManag() {
-        return "roomList";
-    }
 }

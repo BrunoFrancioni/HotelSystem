@@ -1,96 +1,75 @@
 package com.hotelsystem.models;
 
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Date;
+import java.util.Set;
 import javax.persistence.*;
-import java.util.*;
 
 @Entity
-@Table(name = "user")
-public class User implements UserDetails {
+public class User {
+
     @Id
     @GeneratedValue(generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Long id_user;
 
-    @Column(nullable = false, length = 255, name = "email", unique = true)
-    private String email;
-
-    @Column(nullable = false, length = 255, name = "password")
+    @Column
     private String password;
 
-    @Column(nullable = false, length = 100, name = "first_name")
-    private String first_name;
-
-    @Column(nullable = false, length = 100, name = "last_name")
-    private String last_name;
-
-    @Column(nullable = false, name = "birthdate")
-    @Basic
-    @Temporal(TemporalType.DATE)
-    private java.util.Date birthdate;
-
-    @Column(nullable = false, length = 100, name = "nationality")
+    @Column
     private String nationality;
 
-    @OneToMany(mappedBy = "guest", cascade = CascadeType.ALL)
-    private List<Booking> bookings = new ArrayList<Booking>();
+    @Column(unique = true)
+    private String email;
 
-    @Version
-    private Integer version;
+    @Column
+    private String first_name;
+
+    @Column
+    private String last_name;
+
+    @Column(nullable = false)
+    @Basic
+    @Temporal(TemporalType.DATE)
+    private Date birthdate;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "authority_user", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_authority"))
+    @JoinTable(name = "users_authorities", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_authority"))
     private Set<Authority> authority;
 
-    public User() {
-    }
-
-    public User(Long id_user, String email, String password, String first_name, String last_name, Date birthdate, String nationality, Integer version) {
-        this.id_user = id_user;
-        this.email = email;
-        this.password = password;
-        this.first_name = first_name;
-        this.last_name = last_name;
-        this.birthdate = birthdate;
-        this.nationality = nationality;
-        this.version = version;
-    }
-
-    public User(String email, String password, Collection<? extends GrantedAuthority> authorities){
-        this.email=email;
-        this.password=password;
-        for(GrantedAuthority a :authorities){
-            authority.add((Authority) a);
-        }
-    }
-
-    /*public Collection<? extends GrantedAuthority> getAuthorities(){
-        Collection<GrantedAuthority> list = new ArrayList<>();
-        for (Authority a : authority){
-            list.add(a);
-        }
-        return list;
-    }*/
-
-    public void setAuthorities(Authority a){
-        authority.add(a);
-    }
-
-    public void setAuthorities(List<Authority> list){
-        for(Authority a : list){
-            authority.add(a);
-        }
-    }
-
-    public Long getId_user() {
+    public Long getId() {
         return id_user;
     }
 
-    public void setId_user(Long id_user) {
-        this.id_user = id_user;
+    public void setId(Long id) {
+        this.id_user = id;
+    }
+
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Set<Authority> getAuthority() {
+        return authority;
+    }
+
+    public void setAuthority(Set<Authority> authority) {
+        this.authority = authority;
+    }
+
+    public String getNationality() {
+        return nationality;
+    }
+
+    public void setNationality(String nationality) {
+        this.nationality = nationality;
     }
 
     public String getEmail() {
@@ -99,39 +78,6 @@ public class User implements UserDetails {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    @Override
-    public String getUsername() {
-        return email;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirst_name() {
@@ -150,44 +96,33 @@ public class User implements UserDetails {
         this.last_name = last_name;
     }
 
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getNationality() {
-        return nationality;
-    }
-
-    public void setNationality(String nationality) {
-        this.nationality = nationality;
-    }
-
-    public Integer getVersion() {return version;}
-
-    public void setVersion(Integer version) {this.version = version;}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id_user.equals(user.id_user) &&
-                email.equals(user.email) &&
-                password.equals(user.password) &&
-                first_name.equals(user.first_name) &&
-                last_name.equals(user.last_name) &&
-                birthdate.equals(user.birthdate) &&
-                nationality.equals(user.nationality) &&
-                version.equals(user.version);
-    }
-
     @Override
     public int hashCode() {
-        return Objects.hash(id_user, email, password, first_name, last_name, birthdate, nationality, version);
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((id_user == null) ? 0 : id_user.hashCode());
+        return result;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        if (id_user == null) {
+            if (other.id_user != null)
+                return false;
+        } else if (!id_user.equals(other.id_user))
+            return false;
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User [id=" + id_user + ", username=" + ", password=" + password + "]";
+    }
 }

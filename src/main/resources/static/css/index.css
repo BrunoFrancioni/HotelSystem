@@ -1,63 +1,101 @@
-body {
-    background: url(/img/background.jpg) no-repeat center center fixed;
+body{
+    background: url(../img/background.jpg) no-repeat center center fixed;
     background-size: cover;
 }
 
-.main-section {
+.main-section{
     margin:0 auto;
-    margin-top:50%;
+    margin-top:25%;
     padding: 0;
 }
 
-.modal-content {
+.modal-content{
     background-color: #3b4652;
     opacity: .85;
     padding: 0 20px;
     box-shadow: 0px 0px 3px #848484;
 }
-
-.welcome-txt {
-    color: white;
-    font-family: "Font Awesome\ 5 Free";
-    font-size: x-large;
+.user-img{
+    margin-top: -50px;
+    margin-bottom: 35px;
 }
 
-.hotel-img img {
+.user-img img{
     width: 100px;
     height: 100px;
     border-radius: 50%;
 }
 
-.button-check-booking {
+.form-group input{
+    height: 42px;
+    font-size: 18px;
+    border:0;
+    padding-left: 54px;
+    border-radius: 5px;
+}
+
+.form-group::before{
     font-family: "Font Awesome\ 5 Free";
-    color: white;
+    position: absolute;
+    left: 28px;
+    font-size: 22px;
+    padding-top:4px;
+}
+
+.form-group#user-group::before{
+    content: "\f007";
+}
+
+.form-group#password-group::before{
+    content: "\f023";
+}
+
+.button{
     width: 60%;
-    margin: 30px 0 5px;
-    background: #0f6674;
+    margin: 5px 0 25px;
 }
 
-.button-check-booking:active {
-    background:red;
-    color: blue;
-}
-
-.button-login {
-    font-family: "Font Awesome\ 5 Free";
-    color: black;
-    width: 60%;
-    margin: 30px 0 5px;
-    background: #9fcdff;
-}
-
-.button-login:active {
-    background: black;
-    color: white;
-}
-
-.forgot {
+.forgot{
     padding: 5px 0;
 }
 
-.forgot a {
+.forgot a{
     color: white;
+}
+
+.button-register{
+    text-decoration: none;
+    padding: 50px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+    width: 20%;
+    height: 20%;
+}
+.button-register:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+}
+
+.button-invited{
+    text-decoration: none;
+    padding: 50px;
+    color: #ffffff;
+    background-color: #1883ba;
+    border-radius: 6px;
+    border: 2px solid #0016b0;
+    width: 20%;
+    height: 20%;
+}
+.button-invited:hover{
+    color: #1883ba;
+    background-color: #ffffff;
+}
+
+.modal-content2{
+    background-color: #3b4652;
+    opacity: .85;
+    padding: 0 40px;
+    box-shadow: 0px 0px 3px #848484;
 }

@@ -17,25 +17,34 @@
     <!-- Nuestro css-->
     <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/index.css}">
 
-    <!--<link rel="shortcut icon" type="image/ico" th:href="@{/img/favicon.ico}"/> -->
+    <link rel="shortcut icon" type="image/ico" th:href="@{/img/favicon.ico}"/>
 
 </head>
 <body>
 <div class="modal-dialog text-center">
     <div class="col-sm-8 main-section">
         <div class="modal-content">
-            <div class="col-12 hotel-img">
-                <img src="static/img/hotel.png" th:src="@{/img/hotel.png}"/>
+            <div class="col-12 user-img">
+                <img src="static/img/iconuser.png" th:src="@{/img/iconuser.png}"/>
             </div>
-            <div id="roomgrid-title">
-                <span class="welcome-txt">WELCOME</span>
+            <form class="col-12" th:action="@{/login}" method="post">
+                <div class="form-group" id="user-group">
+                    <input type="text" class="form-control" placeholder="Username" name="email"/>
+                </div>
+                <div class="form-group" id="password-group">
+                    <input type="password" class="form-control" placeholder="Password" name="password"/>
+                </div>
+                <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Ingresar </button>
+            </form>
+            <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                Check your info
             </div>
-            <div></div>
-            <div></div>
-            <div>
-                <a href="/booking" class="btn button-check-booking">Check Booking</a>
-                <a href="/login" class="btn button-login">Login</a>
+            <div th:if="${param.logout}" class="alert alert-success" role="alert">
+                Log Out Successful
             </div>
+        </div>
+        <div class="modal-content">
+        <a href="/booking" class="btn button-register">Sign Up</a> | <a href="/booking" class="btn button-invited">Invited</a>
         </div>
     </div>
 </div>

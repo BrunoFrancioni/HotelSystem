@@ -1,10 +1,8 @@
 package com.hotelsystem.securityconfig;
 
-import com.hotelsystem.services.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -13,34 +11,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-public class WebConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     String[] resources = new String[]{
-            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/"
+            "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
     };
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(resources).permitAll()
-<<<<<<< HEAD
-                .antMatchers("/","/index","/login","booking/checkBooking","booking/check").permitAll()
-                .antMatchers("/userManag").access("hasRole('ADMIN')")
-                .antMatchers("/roomManag").access("hasRole('ADMIN')")
-                .antMatchers("/loginsuccess").access("hasRole('ADMIN') or hasRole('USER')")
-=======
-                .antMatchers("/","/index","/login", "/booking","booking/checkBooking","booking/check").permitAll()
-                /*.antMatchers("/userManag").access("hasRole('ADMIN')")
-                .antMatchers("/roomManag").access("hasRole('ADMIN')")*/
-               /* .anyRequest().authenticated()*/
->>>>>>> 1bdb08d84af312248b5bbbc62a16a24179b8b197
+                .antMatchers("/","/index","/booking").permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .permitAll()
-                .defaultSuccessUrl("/loginsuccess")
+                .defaultSuccessUrl("/menu")
                 .failureUrl("/login?error=true")
                 .usernameParameter("email")
                 .passwordParameter("password")
@@ -49,18 +37,25 @@ public class WebConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .logoutSuccessUrl("/login?logout");
     }
-
-    @Autowired
-    private UserDetailsServiceImpl userDetailsService;
-
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+    //password encryptor
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(4);
+        bCryptPasswordEncoder = new BCryptPasswordEncoder(8);
+
+        return bCryptPasswordEncoder;
     }
 
     @Autowired
-    protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    com.hotelsystem.services.UserDetailsServiceImpl userDetailsService;
+
+    //register the service for users and encryptor
+    @Autowired
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+        // Setting Service to find User in the database.
+        // And Setting PassswordEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
-
 }
+

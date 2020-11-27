@@ -33,7 +33,7 @@ public class Room {
     private String facilities;
 
     @OneToMany(mappedBy = "room", cascade = CascadeType.ALL)
-    private List<Booking> bookings = new ArrayList<Booking>();
+    private final List<Booking> bookings = new ArrayList<Booking>();
 
     @Version
     private Integer version;
