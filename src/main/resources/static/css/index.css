@@ -5,25 +5,25 @@ body{
 
 .main-section{
     margin:0 auto;
-    margin-top:25%;
+    margin-top:30%;
     padding: 0;
 }
 
 .modal-content{
     background-color: #3b4652;
     opacity: .85;
-    padding: 0 20px;
+    padding: 0 15px;
     box-shadow: 0px 0px 3px #848484;
 }
-.user-img{
-    margin-top: -50px;
+.hotel-img{
+    margin-top: -10px;
     margin-bottom: 35px;
 }
 
-.user-img img{
+.hotel-img img{
     width: 100px;
     height: 100px;
-    border-radius: 50%;
+    border-radius: 60%;
 }
 
 .form-group input{
@@ -63,39 +63,11 @@ body{
     color: white;
 }
 
-.button-register{
-    text-decoration: none;
-    padding: 50px;
-    color: #ffffff;
-    background-color: #1883ba;
-    border-radius: 6px;
-    border: 2px solid #0016b0;
-    width: 20%;
-    height: 20%;
-}
-.button-register:hover{
-    color: #1883ba;
-    background-color: #ffffff;
-}
 
-.button-invited{
-    text-decoration: none;
-    padding: 50px;
-    color: #ffffff;
-    background-color: #1883ba;
-    border-radius: 6px;
-    border: 2px solid #0016b0;
-    width: 20%;
-    height: 20%;
-}
-.button-invited:hover{
-    color: #1883ba;
-    background-color: #ffffff;
-}
 
 .modal-content2{
-    background-color: #3b4652;
-    opacity: .85;
-    padding: 0 40px;
+    background-color: #E7BA44;
+    opacity: .90;
+    padding: 20px 500px;
     box-shadow: 0px 0px 3px #848484;
 }

@@ -24,8 +24,8 @@
 <div class="modal-dialog text-center">
     <div class="col-sm-8 main-section">
         <div class="modal-content">
-            <div class="col-12 user-img">
-                <img src="static/img/iconuser.png" th:src="@{/img/iconuser.png}"/>
+            <div class="col-12 hotel-img">
+                <img src="static/img/hotel.png" th:src="@{/img/hotel.png}"/>
             </div>
             <form class="col-12" th:action="@{/login}" method="post">
                 <div class="form-group" id="user-group">
@@ -43,10 +43,14 @@
                 Log Out Successful
             </div>
         </div>
-        <div class="modal-content">
-        <a href="/booking" class="btn button-register">Sign Up</a> | <a href="/booking" class="btn button-invited">Invited</a>
-        </div>
     </div>
 </div>
+<div class = "footer-copyright text-center py-3">
+    <a href="/booking" >Sign Up</a> | <a href="/booking" class="btn button-invited">Invited</a>
+
+</div>
+
+
+
 </body>
 </html>
