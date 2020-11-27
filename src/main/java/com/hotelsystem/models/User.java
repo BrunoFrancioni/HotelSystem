@@ -71,7 +71,6 @@ public class User {
     public void setNationality(String nationality) {
         this.nationality = nationality;
     }
-
     public String getEmail() {
         return email;
     }
@@ -94,6 +93,14 @@ public class User {
 
     public void setLast_name(String last_name) {
         this.last_name = last_name;
+    }
+
+    public Date getBirthdate() {
+        return birthdate;
+    }
+
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
     }
 
     @Override

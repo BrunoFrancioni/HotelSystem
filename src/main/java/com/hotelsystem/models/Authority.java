@@ -2,12 +2,10 @@ package com.hotelsystem.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@NamedQuery(name="Authority.user",query = "SELECT a FROM Authority a WHERE a.authority='USER'")
 public class Authority {
 
     @Id
