@@ -37,12 +37,12 @@ public class BookingController {
     }
 
     @PostMapping("/booking/check")
-    public String checkAvailables(@RequestParam String from, @RequestParam String to, @RequestParam String guests, Model model) throws ParseException {
+    public String checkAvailable(@RequestParam String from, @RequestParam String to, @RequestParam String guests, Model model) throws ParseException {
         Date fromDate = DateParser.parseDate(from);
         Date toDate = DateParser.parseDate(to);
         Integer guestsInteger = Integer.parseInt(guests);
 
-        model.addAttribute("availabilities", bookingServices.checkAvailableRooms(fromDate, toDate, guestsInteger));
+        model.addAttribute("available", bookingServices.roomsAvailable(fromDate, toDate, guestsInteger));
 
         return "booking";
     }

@@ -7,6 +7,27 @@
     <link href="/static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
 </head>
 <body>
-    <a>Aca se muestran las habitaciones disponibles con los datos solicitados</a>
+<div class="container">
+    <h2 th:if="${available.isEmpty()}">No rooms</h2>
+    <div th:if="${!available.isEmpty()}">
+        <h2>Available Rooms</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Facilities</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="room : ${available}">
+                <td th:text="${room.getName()}">
+                <td th:text="${room.getFacilities()}">
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 </body>
 </html>
