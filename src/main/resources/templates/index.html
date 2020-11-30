@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>A133</title>
+    <title>Hotel System</title>
 
     <!--JQUERY-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -21,36 +21,34 @@
 
 </head>
 <body>
-<div class="modal-dialog text-center">
-    <div class="col-sm-8 main-section">
-        <div class="modal-content">
-            <div class="col-12 hotel-img">
-                <img src="static/img/hotel.png" th:src="@{/img/hotel.png}"/>
-            </div>
-            <form class="col-12" th:action="@{/login}" method="post">
-                <div class="form-group" id="user-group">
-                    <input type="text" class="form-control" placeholder="Username" name="email"/>
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+                <div class="col-12 hotel-img">
+                    <img src="static/img/hotel.png" th:src="@{/img/hotel.png}"/>
                 </div>
-                <div class="form-group" id="password-group">
-                    <input type="password" class="form-control" placeholder="Password" name="password"/>
+                <form class="col-12 form-login" th:action="@{/login}" method="post">
+                    <div class="form-group" id="user-group">
+                        <input type="text" class="form-control" placeholder="Username" name="email"/>
+                    </div>
+                    <div class="form-group" id="password-group">
+                        <input type="password" class="form-control" placeholder="Password" name="password"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Log In </button>
+                </form>
+                <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                    Check your info
                 </div>
-                <button type="submit" class="btn btn-primary"><i class="fas fa-sign-in-alt"></i>  Ingresar </button>
-            </form>
-            <div th:if="${param.error}" class="alert alert-danger" role="alert">
-                Check your info
-            </div>
-            <div th:if="${param.logout}" class="alert alert-success" role="alert">
-                Log Out Successful
+                <div th:if="${param.logout}" class="alert alert-success" role="alert">
+                    Log Out Successful
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class = "footer-copyright text-center py-3">
-    <a href="/register" >Sign Up</a> | <a href="/booking" class="btn button-invited">Invited</a>
 
-</div>
-
-
+    <div class = "footer-copyright text-center py-3">
+        <a href="/register" class="btn btn-info" >Sign Up</a> | <a href="/booking" class="btn btn-info">Invited</a>
+    </div>
 
 </body>
 </html>

@@ -14,7 +14,7 @@ import java.util.List;
 public interface BookingRepository extends JpaRepository<Booking,Long> {
 
     @Query("SELECT r FROM Room r WHERE r.availability = true AND NOT EXISTS " +
-            "(SELECT b FROM Booking b WHERE (r.occupancy < :guests) OR (r.id_room = b.room.id_room AND "+
+            "(SELECT b FROM Booking b WHERE (r.occupancy <> :guests) OR (r.id_room = b.room.id_room AND "+
             "((:from BETWEEN b.check_in AND b.check_out) OR "+
             "(:to BETWEEN b.check_in AND b.check_out) OR " +
             "(:from < b.check_in AND :to > b.check_out))))")

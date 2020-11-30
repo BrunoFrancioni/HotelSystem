@@ -27,8 +27,7 @@ public class BookingController {
         SimpleDateFormat date = new SimpleDateFormat(dateFormat);
         String todayString = date.format(today);
 
-        Integer tomorrowDate = Integer.parseInt(todayString.substring(8)) + 1;
-        String tomorrow = todayString.substring(0,8) + tomorrowDate;
+        String tomorrow = date.format(new Date(today.getTime() + (1000 * 60 * 60 * 24)));
 
         model.addAttribute("dateToday", todayString);
         model.addAttribute("dateTomorrow", tomorrow);

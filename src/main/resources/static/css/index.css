@@ -63,11 +63,6 @@ body{
     color: white;
 }
 
-
-
-.modal-content2{
-    background-color: #E7BA44;
-    opacity: .90;
-    padding: 20px 500px;
-    box-shadow: 0px 0px 3px #848484;
+.form-login {
+    margin-bottom: 10px;
 }

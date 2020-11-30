@@ -4,48 +4,62 @@
     <meta charset="UTF-8">
     <title>Register</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/userRegister.css}">
 </head>
 <body>
-<div class="container">
-    <br>
-    <h2>Complete with your info</h2>
-    <form action="#" th:action="@{/userSave}" method="post" enctype="multipart/form-data">
+    <div class="container">
+        <div class="modal-dialog text-center">
+            <div class="col-sm-8 main-section">
+                <div class="modal-content">
+                    <div class="col-12">
+                        <h5>Complete with your info</h5>
+                    </div>
 
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" class="form-control" id="email" name="email">
+                    <hr size=5 style="color: black;" />
+
+                    <form class="col-12" th:action="@{/userSave}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" id="last_name" name="last_name" placeholder="Last Name">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="birthdate">Birthdate</label>
+                            <input type="date" class="form-control" id="birthdate" name="birthdate" placeholder="Birthdate">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="nationality">Nationality</label>
+                            <input type="text" class="form-control" id="nationality" name="nationality" placeholder="Nationality">
+                        </div>
+
+                        <button type="submit" class="btn btn-success"><i class="fas fa-sign-in-alt"></i>  Sign Up </button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password">
-        </div>
-
-        <div class="form-group">
-            <label for="first_name">First Name</label>
-            <input type="text" class="form-control" id="first_name" name="first_name">
-        </div>
-
-        <div class="form-group">
-            <label for="last_name">Last Name</label>
-            <input type="text" class="form-control" id="last_name" name="last_name">
-
-        </div>
-
-        <div class="form-group">
-            <label for="birthdate">Birthdate</label>
-            <input type="date" class="form-control" id="birthdate" name="birthdate">
-        </div>
-
-        <div class="form-group">
-            <label for="nationality">Nationality</label>
-            <input type="text" class="form-control" id="nationality" name="nationality">
-        </div>
-
-        <button type="submit" class="btn btn-success">Register</button>
-    </form>
-</div>
+    </div>
 </body>
 </html>
