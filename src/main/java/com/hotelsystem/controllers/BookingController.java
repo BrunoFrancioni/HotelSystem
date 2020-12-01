@@ -41,6 +41,10 @@ public class BookingController {
         Date toDate = DateParser.parseDate(to);
         Integer guestsInteger = Integer.parseInt(guests);
 
+        if(fromDate.compareTo(toDate) == 0 || fromDate.compareTo(toDate) > 0) {
+            return "redirect:/booking?error=true";
+        }
+
         model.addAttribute("available", bookingServices.roomsAvailable(fromDate, toDate, guestsInteger));
 
         return "booking";

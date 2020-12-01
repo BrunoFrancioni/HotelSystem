@@ -45,6 +45,10 @@
                         </select>
                     </div>
 
+                    <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                        Check In must be lower than Check out
+                    </div>
+
                     <button type="submit" class="btn btn-primary">Search</button>
                 </form>
             </div>
