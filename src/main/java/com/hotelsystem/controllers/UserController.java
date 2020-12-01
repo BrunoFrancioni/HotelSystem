@@ -42,7 +42,6 @@ public class UserController {
             return "redirect:/";
         }
 
-        return "redirect:/";
+        return "redirect:/register?error=true";
     }
-
 }
