@@ -24,18 +24,18 @@
             <div class="modal-content">
                 <form action="#" th:action="@{/booking/check}" method="post" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="from">CHECK IN</label>
+                        <label class="label" for="from">CHECK IN</label>
                         <input type="date" class="form-control" name="from" id="from" th:value="${dateToday}" th:min="${dateToday}">
                     </div>
 
                     <div class="form-group">
-                        <label for="to">CHECK OUT</label>
+                        <label class="label" for="to">CHECK OUT</label>
                         <input type="date" class="form-control" name="to" id="to" th:min="${dateTomorrow}">
                         <p th:value="${dateTomorrow}"></p>
                     </div>
 
                     <div class="form-group">
-                        <label for="guests">GUESTS</label>
+                        <label class="label" for="guests">GUESTS</label>
                         <select class="form-control" name="guests" id="guests">
                             <option value="1">1</option>
                             <option value="2">2</option>
