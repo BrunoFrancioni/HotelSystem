@@ -49,4 +49,11 @@ public class BookingController {
 
         return "booking";
     }
+
+    @PostMapping("/reserve")
+    public String reserveRoom(@RequestParam String id_room) {
+        // Reserve logic
+
+        return "/";
+    }
 }

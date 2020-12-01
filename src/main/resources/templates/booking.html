@@ -4,27 +4,43 @@
     <meta charset="UTF-8">
     <title>Booking</title>
 
-    <link href="/static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div class="container">
-    <h2 th:if="${available.isEmpty()}">No rooms</h2>
+    <h2 th:if="${available.isEmpty()}">No rooms available</h2>
+
     <div th:if="${!available.isEmpty()}">
         <h2>Available Rooms</h2>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Name</th>
-                <th>Facilities</th>
-                <th></th>
-                <th></th>
-            </tr>
+        <table class="table table-striped table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>NAME</th>
+                    <th>PRICE</th>
+                    <th>OCCUPANCY</th>
+                    <th>FACILITIES</th>
+                    <th></th>
+                </tr>
             </thead>
+
             <tbody>
-            <tr th:each="room : ${available}">
-                <td th:text="${room.getName()}">
-                <td th:text="${room.getFacilities()}">
-            </tr>
+                <tr th:each="room : ${available}">
+                    <td th:text="${room.getName()}">
+                    <td th:text="${room.getPrice()}"></td>
+                    <td th:text="${room.getOccupancy()}"></td>
+                    <td th:text="${room.getFacilities()}">
+                    <td>
+                        <form action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
+                            <input hidden th:value="${room.getId_room()}" id="id_room">
+                            <a type="submit" class="btn btn-warning">Reserve</a>
+                        </form>
+                    </td>
+                </tr>
             </tbody>
         </table>
     </div>
