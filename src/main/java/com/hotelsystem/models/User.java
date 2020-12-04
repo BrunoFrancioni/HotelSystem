@@ -39,6 +39,8 @@ public class User {
     @JoinTable(name = "users_authorities", joinColumns = @JoinColumn(name = "id_user"), inverseJoinColumns = @JoinColumn(name = "id_authority"))
     private Set<Authority> authority;
 
+
+
     public Long getId() {
         return id_user;
     }

@@ -1,26 +1,33 @@
 package com.hotelsystem.services;
 
 import com.hotelsystem.models.Authority;
-import com.hotelsystem.models.Room;
 import com.hotelsystem.models.User;
-import com.hotelsystem.repository.RoomRepository;
 import com.hotelsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import javax.servlet.ServletRequest;
+import javax.servlet.http.HttpSession;
+import java.util.*;
 
 @Service
 public class UserServices {
     @Autowired
     private UserRepository userRepository;
+
 
     public List<User> findAll() {
         return userRepository.findAll();
@@ -75,4 +82,19 @@ public class UserServices {
             return false;
         }
     }
+
+    public void setUserSession(){
+
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        User user = new User();
+        user.setEmail(currentPrincipalName);
+
+        session.setAttribute("usersession",user);
+
+        System.out.println(currentPrincipalName);
+    }
+
 }

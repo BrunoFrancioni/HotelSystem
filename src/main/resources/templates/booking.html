@@ -13,6 +13,11 @@
 </head>
 <body>
 <div class="container">
+
+    <form th:action="@{/logout}" method="post">
+        <input th:if="${session.usersession != null}" type="submit" value="Logout"/>
+    </form>
+
     <h2 th:if="${available.isEmpty()}">No rooms available</h2>
 
     <div th:if="${!available.isEmpty()}">
@@ -32,12 +37,13 @@
                 <tr th:each="room : ${available}">
                     <td th:text="${room.getName()}">
                     <td th:text="${room.getPrice()}"></td>
-                    <td th:text="${room.getOccupancy()}"></td>
+                    <td th:text="${room.getOccupancy()}" class="text-center"></td>
                     <td th:text="${room.getFacilities()}">
                     <td>
                         <form action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
                             <input hidden th:value="${room.getId_room()}" id="id_room">
                             <a type="submit" class="btn btn-warning">Reserve</a>
+                            <!--<a th:if="${session.usersession == null}" type="submit" class="btn btn-warning">Log In</a>-->
                         </form>
                     </td>
                 </tr>
