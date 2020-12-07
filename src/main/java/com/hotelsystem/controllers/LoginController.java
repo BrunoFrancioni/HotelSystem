@@ -23,7 +23,7 @@ public class LoginController {
     @GetMapping("/menu")
     public String hello() {
         userServices.setUserSession();
-        return "menu";
+        return "redirect:/booking";
     }
 
 }
