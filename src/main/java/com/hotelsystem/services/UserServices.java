@@ -5,21 +5,15 @@ import com.hotelsystem.models.User;
 import com.hotelsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.*;
 
@@ -59,7 +53,11 @@ public class UserServices {
         return userRepository.getOne(id);
     }
 
-    public boolean updateUSer(User user) {
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    public boolean updateUser(User user) {
         try {
             userRepository.updateUser(user.getFirst_name(), user.getNationality(), user.getLast_name());
 
@@ -84,13 +82,11 @@ public class UserServices {
     }
 
     public void setUserSession(){
-
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpSession session = attributes.getRequest().getSession(true);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
-        User user = new User();
-        user.setEmail(currentPrincipalName);
+        Optional<User> user = this.getUserByEmail(currentPrincipalName);
 
         session.setAttribute("usersession",user);
 
