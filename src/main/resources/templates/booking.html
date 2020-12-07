@@ -10,6 +10,12 @@
     <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Los iconos tipo Solid de Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="static/css/booking.css" th:href="@{/css/booking.css}">
 </head>
 
 <body>
@@ -32,11 +38,18 @@
                 </li>
             </ul>
 
-            <form th:action="@{/logout}" method="post">
-                <input th:if="${session.usersession != null}" class="btn btn-danger" type="submit" value="Logout"/>
-            </form>
+           <div th:if="${session.usersession != null}" class="d-flex flex-row">
+               <form th:action="@{/setting}" method="get">
+                   <input hidden th:value="${session.usersession.get().getId()}" id="id_user">
+                   <button type="submit" class="btn btn-light"><i class="fas fa-sliders-h"></i></button>
+               </form>
 
-            <a th:if="${session.usersession == null}" href="/" class="btn btn-success" >Login</a>
+               <form th:action="@{/logout}" method="post" class="ml-2">
+                   <button type="submit" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></button>
+               </form>
+           </div>
+
+            <a th:if="${session.usersession == null}" href="/" class="btn btn-success">Login</a>
         </div>
     </nav>
 
@@ -84,7 +97,7 @@
     </div>
 
     <footer class="page-footer font-small stylish-color-dark bg-dark">
-        <p class="footer-copyright text-center py-3 text-light">© 2020 Copyright: Hotel System</p>
+        <p class="footer-copyright text-center p-3 text-light">© 2020 Copyright: Hotel System</p>
     </footer>
 </body>
 </html>
