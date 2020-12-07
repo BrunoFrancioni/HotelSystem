@@ -11,45 +11,80 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
-<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="margin-bottom: 10px;">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <a class="navbar-brand" href="#">Hotel System</a>
 
-    <form th:action="@{/logout}" method="post">
-        <input th:if="${session.usersession != null}" type="submit" value="Logout"/>
-    </form>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>
+            </ul>
 
-    <h2 th:if="${available.isEmpty()}">No rooms available</h2>
+            <form th:action="@{/logout}" method="post">
+                <input th:if="${session.usersession != null}" class="btn btn-danger" type="submit" value="Logout"/>
+            </form>
 
-    <div th:if="${!available.isEmpty()}">
-        <h2>Available Rooms</h2>
-        <table class="table table-striped table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th>NAME</th>
-                    <th>PRICE</th>
-                    <th>OCCUPANCY</th>
-                    <th>FACILITIES</th>
-                    <th></th>
-                </tr>
-            </thead>
+            <a th:if="${session.usersession == null}" href="/" class="btn btn-success" >Login</a>
+        </div>
+    </nav>
 
-            <tbody>
-                <tr th:each="room : ${available}">
-                    <td th:text="${room.getName()}">
-                    <td th:text="${room.getPrice()}"></td>
-                    <td th:text="${room.getOccupancy()}" class="text-center"></td>
-                    <td th:text="${room.getFacilities()}">
-                    <td>
-                        <form action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
-                            <input hidden th:value="${room.getId_room()}" id="id_room">
-                            <a type="submit" class="btn btn-warning">Reserve</a>
-                            <!--<a th:if="${session.usersession == null}" type="submit" class="btn btn-warning">Log In</a>-->
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+    <div class="container">
+        <div class="d-flex flex-row justify-content-between">
+            <h2>Available Rooms</h2>
+
+            <form th:action="@{/booking}" method="get">
+                <input class="btn btn-warning" type="submit" value="Search again" />
+            </form>
+        </div>
+
+        <h2 th:if="${available.isEmpty()}">No rooms available</h2>
+
+        <div th:if="${!available.isEmpty()}">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>NAME</th>
+                        <th>PRICE</th>
+                        <th>OCCUPANCY</th>
+                        <th>FACILITIES</th>
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="room : ${available}">
+                        <td th:text="${room.getName()}">
+                        <td th:text="${room.getPrice()}"></td>
+                        <td th:text="${room.getOccupancy()}" class="text-center"></td>
+                        <td th:text="${room.getFacilities()}">
+                        <td>
+                            <form action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
+                                <input hidden th:value="${room.getId_room()}" id="id_room">
+                                <a type="submit" class="btn btn-warning">Reserve</a>
+                                <!--<a th:if="${session.usersession == null}" type="submit" class="btn btn-warning">Log In</a>-->
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-</div>
+
+    <footer class="page-footer font-small stylish-color-dark bg-dark">
+        <p class="footer-copyright text-center py-3 text-light">© 2020 Copyright: Hotel System</p>
+    </footer>
 </body>
 </html>
