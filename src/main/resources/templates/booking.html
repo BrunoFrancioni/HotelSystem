@@ -79,13 +79,13 @@
 
                 <tbody>
                     <tr th:each="room : ${available}">
-                        <td th:text="${room.getName()}">
-                        <td th:text="${room.getPrice()}"></td>
-                        <td th:text="${room.getOccupancy()}" class="text-center"></td>
-                        <td th:text="${room.getFacilities()}">
+                        <td th:text="${room.name}">
+                        <td th:text="${room.price}"></td>
+                        <td th:text="${room.occupancy}" class="text-center"></td>
+                        <td th:text="${room.facilities}">
                         <td>
                             <form action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
-                                <input hidden th:value="${room.getId_room()}" id="id_room">
+                                <input hidden th:value="${room.id_room}" id="id_room">
                                 <a type="submit" class="btn btn-warning">Reserve</a>
                                 <!--<a th:if="${session.usersession == null}" type="submit" class="btn btn-warning">Log In</a>-->
                             </form>
@@ -93,6 +93,25 @@
                     </tr>
                 </tbody>
             </table>
+            <div class="row">
+                <div class="col-md-2"></div>
+                <div class="col-md-8">
+                    <nav aria-label="Pagination">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
+                                <a class="page-link" th:href="@{|/booking/checkPage?page=${prev}|}">Last</a>
+                            </li>
+                            <li class="page-item" th:each="page : ${pages}" th:classappend="${current == page ? 'active': ''}">
+                                <a class="page-link" th:href="@{|/booking/checkPage?page=${page}|}" th:text="${page}"></a>
+                            </li>
+                            <li class="page-item" th:classappend="${current == last ? 'disabled': ''}">
+                                <a class="page-link" th:href="@{|/booking/checkPage?page=${next}|}">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
         </div>
     </div>
 
