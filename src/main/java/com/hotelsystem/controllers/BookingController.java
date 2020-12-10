@@ -2,6 +2,7 @@ package com.hotelsystem.controllers;
 
 import com.hotelsystem.models.Booking;
 import com.hotelsystem.models.Room;
+import com.hotelsystem.utils.CheckSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +25,7 @@ import java.util.stream.IntStream;
 @Controller
 public class BookingController {
     private DateParser dateParser;
+    private CheckSession checkSession;
 
     @Autowired
     private BookingServices bookingServices;
@@ -108,8 +110,11 @@ public class BookingController {
 
 
     @PostMapping("/reserve")
-    public String reserveRoom(@RequestParam String id_room) {
-        // Reserve logic
+    public String reserveRoom(@RequestParam String id_room, Model model) {
+        if(!checkSession.check()){
+            return "redirect:/";
+        }
+
         try {
             bookingServices.saveBooking(id_room, FROM_VAR, TO_VAR);
                 return "redirect:/booking";
