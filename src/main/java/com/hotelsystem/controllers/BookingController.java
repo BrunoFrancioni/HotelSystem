@@ -107,16 +107,15 @@ public class BookingController {
     }
 
 
-    /*@PostMapping("/reserve")
+    @PostMapping("/reserve")
     public String reserveRoom(@RequestParam String id_room) {
         // Reserve logic
-        Booking booking = new Booking();
-        booking.setCheck_in(FROM_VAR);
-        booking.setCheck_out(TO_VAR);
-        booking.setBreakfast_included(false);
-        booking.setParking(false);
-        booking.setFree_cancellation(false);
-        booking.set
-        return "/";
-    }*/
+        try {
+            bookingServices.saveBooking(id_room, FROM_VAR, TO_VAR);
+                return "redirect:/booking";
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return "redirect:/";
+        }
+    }
 }

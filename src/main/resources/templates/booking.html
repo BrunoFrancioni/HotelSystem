@@ -85,8 +85,8 @@
                         <td th:text="${room.facilities}">
                         <td>
                             <form action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
-                                <input hidden th:value="${room.id_room}" id="id_room">
-                                <a type="submit" class="btn btn-warning">Reserve</a>
+                                <input hidden th:value="${room.id_room}" name="id_room" id="id_room">
+                                <button type="submit" class="btn btn-warning">Reserve</button>
                                 <!--<a th:if="${session.usersession == null}" type="submit" class="btn btn-warning">Log In</a>-->
                             </form>
                         </td>
@@ -99,7 +99,7 @@
                     <nav aria-label="Pagination">
                         <ul class="pagination justify-content-center">
                             <li class="page-item" th:classappend="${prev == 0 ? 'disabled': ''}">
-                                <a class="page-link" th:href="@{|/booking/checkPage?page=${prev}|}">Last</a>
+                                <a class="page-link" th:href="@{|/booking/checkPage?page=${prev}|}">Previous</a>
                             </li>
                             <li class="page-item" th:each="page : ${pages}" th:classappend="${current == page ? 'active': ''}">
                                 <a class="page-link" th:href="@{|/booking/checkPage?page=${page}|}" th:text="${page}"></a>
