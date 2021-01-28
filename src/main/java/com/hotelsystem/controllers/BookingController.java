@@ -1,6 +1,5 @@
 package com.hotelsystem.controllers;
 
-import com.hotelsystem.models.Booking;
 import com.hotelsystem.models.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import com.hotelsystem.utils.DateParser;
 import com.hotelsystem.services.BookingServices;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpSession;
+import javax.sound.midi.SysexMessage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,9 +31,6 @@ public class BookingController {
     @Autowired
     private BookingServices bookingServices;
 
-    private Date FROM_VAR;
-    private Date TO_VAR;
-    private Integer GUESTS_VAR;
 
     @GetMapping("/booking")
     public String index(Model model) {
@@ -41,8 +41,20 @@ public class BookingController {
 
         String tomorrow = date.format(new Date(today.getTime() + (1000 * 60 * 60 * 24)));
 
-        model.addAttribute("dateToday", todayString);
-        model.addAttribute("dateTomorrow", tomorrow);
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+        if(session.getAttribute("from_var") != null){
+
+            String today_from_session = date.format(session.getAttribute("from_var"));
+            String tomorrow_from_session = date.format(session.getAttribute("to_var"));
+            String guests_session = "" + session.getAttribute("guests_var");
+            model.addAttribute("dateToday_session", today_from_session);
+            model.addAttribute("dateTomorrow_session", tomorrow_from_session);
+            model.addAttribute("guests_session", guests_session);
+        } else{
+            model.addAttribute("dateToday", todayString);
+            model.addAttribute("dateTomorrow", tomorrow);
+        }
 
         return "checkBooking";
     }
@@ -53,9 +65,12 @@ public class BookingController {
         Date fromDate = DateParser.parseDate(from);
         Date toDate = DateParser.parseDate(to);
         Integer guestsInteger = Integer.parseInt(guests);
-        FROM_VAR = fromDate;
-        TO_VAR = toDate;
-        GUESTS_VAR = guestsInteger;
+
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+        session.setAttribute("from_var", fromDate);
+        session.setAttribute("to_var", toDate);
+        session.setAttribute("guests_var", guestsInteger);
 
         if(fromDate.compareTo(toDate) == 0 || fromDate.compareTo(toDate) > 0) {
             return "redirect:/booking?error=true";
@@ -89,7 +104,14 @@ public class BookingController {
 
         PageRequest pageRequest = PageRequest.of(page, 10);
 
-        Page<Room> pageRoom = bookingServices.getAvailable(pageRequest,FROM_VAR,TO_VAR,GUESTS_VAR);
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+
+        Date from_var = (Date) session.getAttribute("from_var");
+        Date to_var = (Date) session.getAttribute("to_var");
+        Integer guests_var = (Integer) session.getAttribute("guests_var");
+
+        Page<Room> pageRoom = bookingServices.getAvailable(pageRequest,from_var,to_var,guests_var);
 
         int totalPage = pageRoom.getTotalPages();
         if(totalPage > 0) {
@@ -106,16 +128,4 @@ public class BookingController {
         return "booking";
     }
 
-
-    @PostMapping("/reserve")
-    public String reserveRoom(@RequestParam String id_room) {
-        // Reserve logic
-        try {
-            bookingServices.saveBooking(id_room, FROM_VAR, TO_VAR);
-                return "redirect:/booking";
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            return "redirect:/";
-        }
-    }
 }

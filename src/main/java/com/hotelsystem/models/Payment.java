@@ -14,8 +14,6 @@ public class Payment {
     @GenericGenerator(name = "native", strategy = "native")
     private Long id_payment;
 
-    @Version
-    private Integer version;
 
     @Column(nullable = false, name = "created_at")
     @Basic
@@ -28,6 +26,18 @@ public class Payment {
     @Column(nullable = false, name = "card_number", length = 50)
     private String card_number;
 
+    @Column(nullable = false, name = "cvv", length = 3)
+    private String cvv;
+
+    @Column(nullable = false, name = "holder", length = 100)
+    private String holder;
+
+    @Column(nullable = false, name = "month_exp", length = 2)
+    private String month_exp;
+
+    @Column(nullable = false, name = "year_exp", length = 4)
+    private String year_exp;
+
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "id_booking")
     private Booking booking;
@@ -35,13 +45,6 @@ public class Payment {
     public Payment() {
     }
 
-    public Payment(Long id_payment, Date created_at, String card, String card_number, Booking booking) {
-        this.id_payment = id_payment;
-        this.created_at = created_at;
-        this.card = card;
-        this.card_number = card_number;
-        this.booking = booking;
-    }
 
     public Long getId_payment() {
         return id_payment;
@@ -81,25 +84,48 @@ public class Payment {
 
     public void setBooking(Booking booking) {this.booking = booking;}
 
-    public Integer getVersion() {return version;}
+    public String getCvv() {
+        return cvv;
+    }
 
-    public void setVersion(Integer version) {this.version = version;}
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
+    }
+
+    public String getHolder() {
+        return holder;
+    }
+
+    public void setHolder(String holder) {
+        this.holder = holder;
+    }
+
+    public String getMonth_exp() {
+        return month_exp;
+    }
+
+    public void setMonth_exp(String month_exp) {
+        this.month_exp = month_exp;
+    }
+
+    public String getYear_exp() {
+        return year_exp;
+    }
+
+    public void setYear_exp(String year_exp) {
+        this.year_exp = year_exp;
+    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Payment payment = (Payment) o;
-        return id_payment.equals(payment.id_payment) &&
-                created_at.equals(payment.created_at) &&
-                card.equals(payment.card) &&
-                card_number.equals(payment.card_number) &&
-                booking.equals(payment.booking) &&
-                version.equals(payment.version);
+        return id_payment.equals(payment.id_payment) && created_at.equals(payment.created_at) && card.equals(payment.card) && card_number.equals(payment.card_number) && cvv.equals(payment.cvv) && holder.equals(payment.holder) && month_exp.equals(payment.month_exp) && year_exp.equals(payment.year_exp) && booking.equals(payment.booking);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id_payment, created_at, card, card_number, booking, version);
+        return Objects.hash(id_payment, created_at, card, card_number, cvv, holder, month_exp, year_exp, booking);
     }
 }
