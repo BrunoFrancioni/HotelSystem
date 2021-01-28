@@ -84,10 +84,14 @@
                         <td th:text="${room.occupancy}" class="text-center"></td>
                         <td th:text="${room.facilities}">
                         <td>
-                            <form action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
+                            <form th:if="${session.usersession != null}" action="#" th:action="@{/reserve}" method="post" enctype="multipart/form-data">
                                 <input hidden th:value="${room.id_room}" name="id_room" id="id_room">
                                 <button type="submit" class="btn btn-warning">Reserve</button>
                                 <!--<a th:if="${session.usersession == null}" type="submit" class="btn btn-warning">Log In</a>-->
+                            </form>
+                            <form th:if="${session.usersession == null}" action="#" th:action="@{/login_to_book}" method="get" enctype="multipart/form-data">
+                                <input hidden th:value="${room.id_room}" name="id_room_ses" id="id_room_ses">
+                                <button type="submit" class="btn btn-warning">Login To Book</button>
                             </form>
                         </td>
                     </tr>

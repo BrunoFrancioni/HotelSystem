@@ -4,6 +4,11 @@ import com.hotelsystem.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpSession;
 
 
 @Controller
@@ -22,6 +27,11 @@ public class LoginController {
     public String hello() {
         userServices.setUserSession();
         return "redirect:/booking";
+    }
+
+    @GetMapping({"/login_to_book"})
+    public String login_to_book() {
+        return "redirect:/";
     }
 
 }

@@ -55,7 +55,7 @@ public class BookingServices {
     }
 
     @Transactional
-    public boolean saveBooking(String id_room, Date check_in, Date check_out){
+    public void saveBooking(String id_room, Date check_in, Date check_out){
         try{
             Booking booking = new Booking();
             booking.setCheck_in(check_in);
@@ -85,13 +85,19 @@ public class BookingServices {
             booking.setCost(calculateBookingCost(check_in,check_out,baseCost));
 
             bookingRepository.save(booking);
-            return true;
         } catch (Exception e){
             System.out.println(e.getMessage());
-            return false;
         }
 
 
 
+    }
+
+    public Double getBookingCost(String id_room, Date from, Date to){
+        LocalDate check_inLD = from.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate check_outLD = to.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Long days = DAYS.between(check_inLD,check_outLD);
+        Double base = roomRepository.getOne(Long.parseLong(id_room)).getPrice();
+        return days*base;
     }
 }
