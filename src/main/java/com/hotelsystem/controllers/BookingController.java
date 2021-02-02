@@ -1,7 +1,6 @@
 package com.hotelsystem.controllers;
 
 import com.hotelsystem.models.Room;
-import com.hotelsystem.utils.CheckSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,7 +15,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
-import javax.sound.midi.SysexMessage;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,7 +26,6 @@ import java.util.stream.IntStream;
 @Controller
 public class BookingController {
     private DateParser dateParser;
-    private CheckSession checkSession;
 
     @Autowired
     private BookingServices bookingServices;
@@ -129,23 +126,4 @@ public class BookingController {
 
         return "booking";
     }
-
-<<<<<<< HEAD
-
-    @PostMapping("/reserve")
-    public String reserveRoom(@RequestParam String id_room, Model model) {
-        if(!checkSession.check()){
-            return "redirect:/";
-        }
-
-        try {
-            bookingServices.saveBooking(id_room, FROM_VAR, TO_VAR);
-                return "redirect:/booking";
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            return "redirect:/";
-        }
-    }
-=======
->>>>>>> df66f9aad79cc5bbf8c94becda2c93cbeacfe43f
 }
