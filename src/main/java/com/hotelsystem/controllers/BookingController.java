@@ -30,7 +30,6 @@ public class BookingController {
     @Autowired
     private BookingServices bookingServices;
 
-
     @GetMapping("/booking")
     public String index(Model model) {
         Date today = new Date();
