@@ -88,9 +88,6 @@ public class BookingServices {
         } catch (Exception e){
             System.out.println(e.getMessage());
         }
-
-
-
     }
 
     public Double getBookingCost(String id_room, Date from, Date to){

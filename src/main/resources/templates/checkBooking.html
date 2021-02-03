@@ -34,8 +34,7 @@
 
                     <div th:if="${dateTomorrow_session == null}" class="form-group">
                         <label class="label" for="to">CHECK OUT</label>
-                        <input type="date" class="form-control" name="to" id="to" th:min="${dateTomorrow}" required
-                                th:value="${dateTomorrow}">
+                        <input type="date" class="form-control" name="to" id="to" th:min="${dateTomorrow}" required>
                     </div>
                     <div th:if="${dateTomorrow_session != null}" class="form-group">
                         <label class="label" for="to">CHECK OUT</label>
@@ -46,11 +45,12 @@
                     <div th:if="${guests_session != null}" class="form-group">
                         <label class="label" for="guests">GUESTS</label>
                         <select class="form-control" name="guests" id="guests_ses">
-                            <option th:selected="${guests_session == 1}" value="1">1</option>
-                            <option th:selected="${guests_session == 2}" value="2">2</option>
-                            <option th:selected="${guests_session == 3}" value="3">3</option>
-                            <option th:selected="${guests_session == 4}" value="4">4</option>
-                            <option th:selected="${guests_session == "5" }" value="5">5</option>
+                            <option th:selected="${guests_session == '1'}" value="1">1</option>
+                            <option th:selected="${guests_session == '2'}" value="2">2</option>
+                            <option th:selected="${guests_session == '3'}" value="3">3</option>
+                            <option th:selected="${guests_session == '4'}" value="4">4</option>
+                            <option th:selected="${guests_session == '5'}" value="5">5</option>
+
                         </select>
                     </div>
                     <div th:if="${guests_session == null}" class="form-group">
