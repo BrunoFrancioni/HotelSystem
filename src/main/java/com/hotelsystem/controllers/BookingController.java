@@ -130,8 +130,6 @@ public class BookingController {
         return "booking";
     }
 
-<<<<<<< HEAD
-
     @PostMapping("/reserve")
     public String reserveRoom(@RequestParam String id_room, Model model) {
         if(!checkSession.check()){
@@ -146,6 +144,4 @@ public class BookingController {
             return "redirect:/";
         }
     }
-=======
->>>>>>> df66f9aad79cc5bbf8c94becda2c93cbeacfe43f
 }
