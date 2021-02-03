@@ -126,22 +126,4 @@ public class BookingController {
 
         return "booking";
     }
-<<<<<<< HEAD
-
-    @PostMapping("/reserve")
-    public String reserveRoom(@RequestParam String id_room, Model model) {
-        if(!checkSession.check()){
-            return "redirect:/";
-        }
-
-        try {
-            bookingServices.saveBooking(id_room, FROM_VAR, TO_VAR);
-                return "redirect:/booking";
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-            return "redirect:/";
-        }
-    }
-=======
->>>>>>> f337b4b92613abe59ef942a38be632245a5bfd4f
 }
