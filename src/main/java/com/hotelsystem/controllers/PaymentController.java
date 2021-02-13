@@ -1,6 +1,7 @@
 package com.hotelsystem.controllers;
 
 import com.hotelsystem.services.BookingServices;
+import com.hotelsystem.services.RoomServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,25 @@ public class PaymentController {
     @Autowired
     private BookingServices bookingServices;
 
+    @Autowired
+    private RoomServices roomServices;
+
+    @GetMapping("/bookingDetails")
+    public String bookingDetails(@RequestParam String id_room, Model model) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+        Date from_var = (Date) session.getAttribute("from_var");
+        Date to_var = (Date) session.getAttribute("to_var");
+
+        int days = (int) ((to_var.getTime() - from_var.getTime()) / 86400000);
+
+        model.addAttribute("cost",bookingServices.getBookingCost(id_room,from_var,to_var));
+        model.addAttribute("room", roomServices.getRoomById(Long.parseLong(id_room)));
+        model.addAttribute("days", days);
+
+        return "bookingDetails";
+    }
+
     @GetMapping("/payment")
     public String payment(@RequestParam String id_room, Model model){
 
@@ -28,6 +48,8 @@ public class PaymentController {
         Date to_var = (Date) session.getAttribute("to_var");
 
         model.addAttribute("cost",bookingServices.getBookingCost(id_room,from_var,to_var));
+        model.addAttribute("room", roomServices.getRoomById(Long.parseLong(id_room)));
+
         return "payment";
     }
 

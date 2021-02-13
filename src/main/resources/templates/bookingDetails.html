@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Details</title>
+
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- Los iconos tipo Solid de Fontawesome-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+    <script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="static/css/checkBooking.css" th:href="@{/css/payment.css}">
+</head>
+
+<body>
+    <div class="container py-5">
+        <div class="row mb-4">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-4">Detalles del Cuarto</h1>
+            </div>
+
+            <div class="col-lg-6 mx-auto">
+                <div class="card">
+                    <div>
+                        <div>
+                            <p>Nombre del cuarto:</p>
+                            <p th:text="${room.name}"></p>
+                        </div>
+
+                        <div>
+                            <p>Facilidades:</p>
+                            <p th:text="${room.facilities}"></p>
+                        </div>
+                    </div>
+
+                    <form action="#" th:action="@{/payment}" method="get" enctype="multipart/form-data">
+                        <h3>Seleccione los servicios extras que desea:</h3>
+
+                        <div>
+                            <input type="checkbox" id="desayuno" name="desayuno" value="100">
+                            <label for="desayuno">Desayuno incluído (100 pesos p/día)</label><br>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="cochera" name="cochera" value="300">
+                            <label for="cochera">Cochera (300 pesos p/día)</label><br>
+                        </div>
+
+                        <div>
+                            <input type="checkbox" id="cancelacion" name="cancelacion" value="200">
+                            <label for="cancelacion">Cancelación gratuita (300 pesos)</label><br>
+                        </div>
+
+                        <input type="hidden" th:value="${days}" id="days" />
+
+                        <h4>Precio Total: $<span id="precioTotal" th:text="${room.price}"></span></h4>
+
+                        <button type="submit" class="btn btn-warning">Go to Payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/bookingDetails.js"></script>
+</body>
+</html>
