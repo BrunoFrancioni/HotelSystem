@@ -26,15 +26,15 @@
             </div>
 
             <div class="col-lg-6 mx-auto">
-                <div class="card">
+                <div class="card p-3">
                     <div>
                         <div>
-                            <p>Nombre del cuarto:</p>
+                            <p><strong>Nombre del cuarto:</strong></p>
                             <p th:text="${room.name}"></p>
                         </div>
 
                         <div>
-                            <p>Facilidades:</p>
+                            <p><strong>Facilidades:</strong></p>
                             <p th:text="${room.facilities}"></p>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
 
                         <h4>Precio Total: $<span id="precioTotal" th:text="${room.price}"></span></h4>
 
-                        <button type="submit" class="btn btn-warning">Go to Payment</button>
+                        <button type="submit" class="btn btn-warning" style="float: right;">Go to Payment</button>
                     </form>
                 </div>
             </div>
