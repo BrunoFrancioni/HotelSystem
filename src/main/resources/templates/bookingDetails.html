@@ -39,25 +39,28 @@
                         </div>
                     </div>
 
-                    <form action="#" th:action="@{/payment}" method="get" enctype="multipart/form-data">
+                    <input hidden th:value="${days}" id="days" />
+
+                    <form action="#" th:action="@{/payment}" method="get"
+                          th:object="${bookingDetailsDTO}" enctype="multipart/form-data">
                         <h3>Seleccione los servicios extras que desea:</h3>
 
                         <div>
-                            <input type="checkbox" id="desayuno" name="desayuno" value="100">
+                            <input type="checkbox" id="desayuno" th:field="*{desayuno}" value="desayuno">
                             <label for="desayuno">Desayuno incluído (100 pesos p/día)</label><br>
                         </div>
 
                         <div>
-                            <input type="checkbox" id="cochera" name="cochera" value="300">
+                            <input type="checkbox" id="cochera" th:field="*{cochera}" value="cochera">
                             <label for="cochera">Cochera (300 pesos p/día)</label><br>
                         </div>
 
                         <div>
-                            <input type="checkbox" id="cancelacion" name="cancelacion" value="200">
+                            <input type="checkbox" id="cancelacion" th:field="*{cancelacion}" value="cancelacion">
                             <label for="cancelacion">Cancelación gratuita (300 pesos)</label><br>
                         </div>
 
-                        <input type="hidden" th:value="${days}" id="days" />
+                        <input hidden th:field="*{room}" th:value="${room}" name="room" id="room" />
 
                         <h4>Precio Total: $<span id="precioTotal" th:text="${room.price}"></span></h4>
 

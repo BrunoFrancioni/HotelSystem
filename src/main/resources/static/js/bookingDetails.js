@@ -9,8 +9,10 @@ jQuery(document).ready(function() {
 
         if($(this).is(':checked')) {
             $('#precioTotal').text(parseFloat(actual + valor));
+            $('this').val('true');
         } else {
             $('#precioTotal').text(parseFloat(actual - valor));
+            $('this').val('false');
         }
     });
 
@@ -19,9 +21,11 @@ jQuery(document).ready(function() {
         const actual = parseFloat($('#precioTotal').text());
 
         if($(this).is(':checked')) {
-            $('#precioTotal').text(parseFloat(actual + valor))
+            $('#precioTotal').text(parseFloat(actual + valor));
+            $('this').val('true');
         } else {
             $('#precioTotal').text(parseFloat(actual - valor));
+            $('this').val('false');
         }
     });
 
@@ -30,9 +34,11 @@ jQuery(document).ready(function() {
         const actual = parseFloat($('#precioTotal').text());
 
         if($(this).is(':checked')) {
-            $('#precioTotal').text(parseFloat(actual + valor))
+            $('#precioTotal').text(parseFloat(actual + valor));
+            $('this').val('true');
         } else {
             $('#precioTotal').text(parseFloat(actual - valor));
+            $('this').val('false');
         }
     });
 });
