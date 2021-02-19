@@ -17,7 +17,7 @@ jQuery(document).ready(function() {
     });
 
     $('#cochera').on('click', function() {
-        const valor = parseFloat(300);
+        const valor = parseFloat(days * 300);
         const actual = parseFloat($('#precioTotal').text());
 
         if($(this).is(':checked')) {
@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
     });
 
     $('#cancelacion').on('click', function() {
-        const valor = parseFloat(days * 400);
+        const valor = parseFloat(300);
         const actual = parseFloat($('#precioTotal').text());
 
         if($(this).is(':checked')) {

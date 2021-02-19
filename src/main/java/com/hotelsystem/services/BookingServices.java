@@ -20,6 +20,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,12 +39,57 @@ public class BookingServices {
     @Autowired
     private UserRepository userRepository;
 
+    public Optional<Room> findRoomById(Long id_room){
+        return roomRepository.findById(id_room);
+    }
+
     public List<Room> roomsAvailable(Date from, Date to, Integer guests){
         return bookingRepository.checkAvailableRooms(from,to,guests);
     }
 
     public Page<Room> getAvailable(Pageable pageable, Date from, Date to, Integer guests) {
         return bookingRepository.checkAvailableRoomsPageable(pageable,from,to,guests);
+    }
+
+    @Transactional
+    public boolean saveBooking(Booking booking){        //true si se guardo, false si no.
+        try{
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+            HttpSession session = attributes.getRequest().getSession(true);
+
+            //check in and check out
+            Date check_in = (Date) session.getAttribute("from_var");
+            Date check_out = (Date) session.getAttribute("to_var");
+
+            booking.setCheck_in(check_in);
+            booking.setCheck_out(check_out);
+
+            //Created_at
+            LocalDate ld = LocalDate.now();
+            String ldString = String.valueOf(ld);
+            booking.setCreated_at(new DateParser().parseDate(ldString));
+
+            //user
+
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String email = authentication.getName();
+            Optional<User> userRes = userRepository.findByEmail(email);
+            booking.setGuest(userRes.get());
+
+            List<Booking> list_check = bookingRepository.finalCheckAvailableBooking(check_in,check_out,booking.getGuest().getId());
+
+            if(list_check.isEmpty()){
+                bookingRepository.save(booking);
+                System.out.println("Booking save");
+                return true;
+            } else{
+                System.out.println("Ya existe un booking");
+                return false;
+            }
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+            return false;
+        }
     }
 
     public Double calculateBookingCost(Date from, Date to, Double base){
@@ -54,47 +100,30 @@ public class BookingServices {
         return days*base;
     }
 
-    @Transactional
-    public void saveBooking(String id_room, Date check_in, Date check_out){
-        try{
-            Booking booking = new Booking();
-            booking.setCheck_in(check_in);
-            booking.setCheck_out(check_out);
-            booking.setBreakfast_included(false);
-            booking.setParking(false);
-            booking.setFree_cancellation(false);
-
-            //Created_at
-            LocalDate ld = LocalDate.now();
-            String ldString = String.valueOf(ld);
-            booking.setCreated_at(new DateParser().parseDate(ldString));
-            //room
-            Long idRoom = Long.parseLong(id_room);
-            Optional<Room> roomRes = roomRepository.findById(idRoom);
-            booking.setRoom(roomRes.get());             //check
-            //user
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
-            HttpSession session = attributes.getRequest().getSession(true);
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String email = authentication.getName();
-            Optional<User> userRes = userRepository.findByEmail(email);
-            booking.setGuest(userRes.get());
-
-            //cost
-            Double baseCost = roomRepository.findById(idRoom).get().getPrice();
-            booking.setCost(calculateBookingCost(check_in,check_out,baseCost));
-
-            bookingRepository.save(booking);
-        } catch (Exception e){
-            System.out.println(e.getMessage());
-        }
+    public Double getBookingCostBase(String id_room, Date from, Date to){
+        Double base = roomRepository.getOne(Long.parseLong(id_room)).getPrice();
+        return base;
     }
 
-    public Double getBookingCost(String id_room, Date from, Date to){
-        LocalDate check_inLD = from.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-        LocalDate check_outLD = to.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+    public Double calculateTotalCost(Long id_room, String cancelacion, String cochera, String desayuno){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+        Date from_var = (Date) session.getAttribute("from_var");
+        Date to_var = (Date) session.getAttribute("to_var");
+        LocalDate check_inLD = from_var.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate check_outLD = to_var.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         Long days = DAYS.between(check_inLD,check_outLD);
-        Double base = roomRepository.getOne(Long.parseLong(id_room)).getPrice();
-        return days*base;
+
+        Double precio_sin_opciones = calculateBookingCost(from_var, to_var, getBookingCostBase(String.valueOf(id_room),from_var,to_var));
+        if(cancelacion != null){
+            precio_sin_opciones += 300.0;
+        }
+        if(cochera != null){
+            precio_sin_opciones += days*300;
+        }
+        if(desayuno != null){
+            precio_sin_opciones += days*100;
+        }
+        return precio_sin_opciones;
     }
 }

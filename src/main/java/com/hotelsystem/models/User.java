@@ -40,7 +40,6 @@ public class User {
     private Set<Authority> authority;
 
 
-
     public Long getId() {
         return id_user;
     }

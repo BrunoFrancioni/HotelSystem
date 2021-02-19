@@ -87,7 +87,6 @@
                             <form th:if="${session.usersession != null}" action="#" th:action="@{/bookingDetails}" method="get" enctype="multipart/form-data">
                                 <input hidden th:value="${room.id_room}" name="id_room" id="id_room">
                                 <button type="submit" class="btn btn-warning">Reserve</button>
-                                <!--<a th:if="${session.usersession == null}" type="submit" class="btn btn-warning">Log In</a>-->
                             </form>
                             <form th:if="${session.usersession == null}" action="#" th:action="@{/login_to_book}" method="get" enctype="multipart/form-data">
                                 <input hidden th:value="${room.id_room}" name="id_room_ses" id="id_room_ses">

@@ -60,9 +60,9 @@
                             <label for="cancelacion">Cancelación gratuita (300 pesos)</label><br>
                         </div>
 
-                        <input hidden th:field="*{room}" th:value="${room}" name="room" id="room" />
+                        <input hidden th:value="${room.id_room}" name="id_room" id="id_room" />
 
-                        <h4>Precio Total: $<span id="precioTotal" th:text="${room.price}"></span></h4>
+                        <h4>Precio Total: $<span id="precioTotal" th:name="precioTotal" th:text="${cost_wout_extras}"></span> </h4>
 
                         <button type="submit" class="btn btn-warning" style="float: right;">Go to Payment</button>
                     </form>
