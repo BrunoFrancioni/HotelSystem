@@ -1,9 +1,11 @@
 package com.hotelsystem.services;
 
 import com.hotelsystem.models.Booking;
+import com.hotelsystem.models.Payment;
 import com.hotelsystem.models.Room;
 import com.hotelsystem.models.User;
 import com.hotelsystem.repository.BookingRepository;
+import com.hotelsystem.repository.PaymentRepository;
 import com.hotelsystem.repository.RoomRepository;
 import com.hotelsystem.repository.UserRepository;
 import com.hotelsystem.utils.DateParser;
@@ -20,7 +22,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpSession;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -38,6 +39,10 @@ public class BookingServices {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PaymentServices paymentServices;
+
 
     public Optional<Room> findRoomById(Long id_room){
         return roomRepository.findById(id_room);

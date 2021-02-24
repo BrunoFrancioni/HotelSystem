@@ -1,0 +1,15 @@
+body{
+    background: url(../img/background.jpg) no-repeat center center fixed;
+    background-size: cover;
+}
+
+.main-section{
+    margin:0 auto;
+    margin-top:30%;
+    padding: 0;
+}
+
+.button{
+    width: 60%;
+    margin: 5px 0 25px;
+}

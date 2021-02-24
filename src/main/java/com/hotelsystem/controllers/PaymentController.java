@@ -4,6 +4,7 @@ import com.hotelsystem.dtos.BookingDetailsDTO;
 import com.hotelsystem.models.Booking;
 import com.hotelsystem.models.Room;
 import com.hotelsystem.services.BookingServices;
+import com.hotelsystem.services.PaymentServices;
 import com.hotelsystem.services.RoomServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,9 @@ public class PaymentController {
 
     @Autowired
     private RoomServices roomServices;
+
+    @Autowired
+    private PaymentServices paymentServices;
 
     @GetMapping("/bookingDetails")
     public String bookingDetails(@RequestParam String id_room, Model model) {
@@ -78,14 +82,16 @@ public class PaymentController {
     }
 
     @PostMapping("/reserve")
-    public String reserveRoom(Model model) {
+    public String reserveRoom(Model model,@RequestParam String holder, @RequestParam String cvv, @RequestParam String cardNumber, @RequestParam String month_exp, @RequestParam String year_exp) {
         // Reserve logic
         try {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attributes.getRequest().getSession(true);
             Booking booking = (Booking) session.getAttribute("booking_to_reserve");
             if(bookingServices.saveBooking(booking)){
-                return "redirect:/booking";
+                if (paymentServices.createAndSavePayment(cardNumber,cvv,holder,month_exp,year_exp,booking))
+                    return "redirect:/booking";
+                else return "redirect:/";
             } else return "redirect:/";
 
 
