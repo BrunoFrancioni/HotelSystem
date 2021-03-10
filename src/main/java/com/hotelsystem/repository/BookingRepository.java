@@ -36,4 +36,13 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
             "(:from < b.check_in AND :to > b.check_out))")
     List<Booking> finalCheckAvailableBooking(@Param("from") Date fromDate, @Param("to") Date toDate, @Param("id_room") Long id_room);
 
+    @Query(value="select * FROM booking WHERE check_in > CURDATE() AND user = ?1 AND NOT EXISTS(SELECT * FROM cancellation WHERE cancellation.id_booking = booking.id_booking)"
+            , nativeQuery = true)
+    List<Booking> allBookingsUser(@Param("id_user") Long id_user);
+
+    @Query(value="select * FROM booking WHERE check_in > CURDATE() AND guest = ?1 AND NOT EXISTS(SELECT * FROM cancellation WHERE cancellation.id_booking = booking.id_booking)",
+            countQuery = "select count(*) FROM booking WHERE check_in > CURDATE() AND guest = ?1 AND NOT EXISTS(SELECT * FROM cancellation WHERE cancellation.id_booking = booking.id_booking)"
+            ,nativeQuery = true)
+    Page<Booking> allBookingsUserPageable(@Param("id_user") Long id_user, Pageable pageable);
+
 }

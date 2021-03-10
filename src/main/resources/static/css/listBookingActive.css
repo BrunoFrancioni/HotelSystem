@@ -1,0 +1,18 @@
+body {
+    background: url(../img/white-texture.jpg) no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    position: relative;
+    margin: 50px;
+    box-sizing: border-box;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+tbody tr{
+    color: black;
+}

@@ -1,5 +1,6 @@
 package com.hotelsystem.controllers;
 
+import com.hotelsystem.models.Booking;
 import com.hotelsystem.models.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -49,6 +50,8 @@ public class BookingController {
             model.addAttribute("dateToday_session", today_from_session);
             model.addAttribute("dateTomorrow_session", tomorrow_from_session);
             model.addAttribute("guests_session", guests_session);
+            model.addAttribute("dateToday", todayString);
+            model.addAttribute("dateTomorrow", tomorrow);
         } else{
             model.addAttribute("dateToday", todayString);
             model.addAttribute("dateTomorrow", tomorrow);
@@ -124,5 +127,54 @@ public class BookingController {
         model.addAttribute("last", totalPage);
 
         return "booking";
+    }
+
+    @PostMapping("/listBookingActive")
+    public String checkBookingsActive(@RequestParam Map<String,Object> params, @RequestParam Long id_booking, Model model){
+
+        int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+
+        PageRequest pageRequest = PageRequest.of(page, 10);
+
+        Page<Booking> pageBooking = bookingServices.getBookingsActivePage(pageRequest);
+
+        int totalPage = pageBooking.getTotalPages();
+        if(totalPage > 0) {
+            List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+            model.addAttribute("pages", pages);
+        }
+
+        model.addAttribute("active", pageBooking.getContent());
+        model.addAttribute("current", page + 1);
+        model.addAttribute("next", page + 2);
+        model.addAttribute("prev", page);
+        model.addAttribute("last", totalPage);
+
+        return "listBookingActive";
+    }
+
+    @GetMapping("/listBookingActive")
+    public String checkBookingsActive(@RequestParam Map<String,Object> params, Model model) throws ParseException {
+
+        int page = params.get("page") != null ? (Integer.valueOf(params.get("page").toString()) - 1) : 0;
+
+        PageRequest pageRequest = PageRequest.of(page, 10);
+
+
+        Page<Booking> pageBooking = bookingServices.getBookingsActivePage(pageRequest);
+
+        int totalPage = pageBooking.getTotalPages();
+        if(totalPage > 0) {
+            List<Integer> pages = IntStream.rangeClosed(1, totalPage).boxed().collect(Collectors.toList());
+            model.addAttribute("pages", pages);
+        }
+
+        model.addAttribute("active", pageBooking.getContent());
+        model.addAttribute("current", page + 1);
+        model.addAttribute("next", page + 2);
+        model.addAttribute("prev", page);
+        model.addAttribute("last", totalPage);
+
+        return "listBookingActive";
     }
 }

@@ -1,11 +1,9 @@
 package com.hotelsystem.services;
 
 import com.hotelsystem.models.Booking;
-import com.hotelsystem.models.Payment;
 import com.hotelsystem.models.Room;
 import com.hotelsystem.models.User;
 import com.hotelsystem.repository.BookingRepository;
-import com.hotelsystem.repository.PaymentRepository;
 import com.hotelsystem.repository.RoomRepository;
 import com.hotelsystem.repository.UserRepository;
 import com.hotelsystem.utils.DateParser;
@@ -40,9 +38,6 @@ public class BookingServices {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PaymentServices paymentServices;
-
 
     public Optional<Room> findRoomById(Long id_room){
         return roomRepository.findById(id_room);
@@ -54,6 +49,10 @@ public class BookingServices {
 
     public Page<Room> getAvailable(Pageable pageable, Date from, Date to, Integer guests) {
         return bookingRepository.checkAvailableRoomsPageable(pageable,from,to,guests);
+    }
+
+    public Optional<Booking> findBookingById(Long id_booking){
+        return bookingRepository.findById(id_booking);
     }
 
     @Transactional
@@ -131,4 +130,21 @@ public class BookingServices {
         }
         return precio_sin_opciones;
     }
+
+    public List<Booking> bookingsActive(){
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+        User user = (User) session.getAttribute("usersession");
+
+        return bookingRepository.allBookingsUser(user.getId());
+    }
+
+    public Page<Booking> getBookingsActivePage (Pageable pageable) {
+        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpSession session = attributes.getRequest().getSession(true);
+        Optional<User> opt_user = (Optional<User>) session.getAttribute("usersession");
+        User user = opt_user.get();
+        return bookingRepository.allBookingsUserPageable(user.getId(),pageable);
+    }
+
 }

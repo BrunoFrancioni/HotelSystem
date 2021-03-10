@@ -17,6 +17,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpSession;
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.Optional;
 
@@ -82,12 +83,14 @@ public class PaymentController {
     }
 
     @PostMapping("/reserve")
+    @Transactional
     public String reserveRoom(Model model,@RequestParam String holder, @RequestParam String cvv, @RequestParam String cardNumber, @RequestParam String month_exp, @RequestParam String year_exp) {
         // Reserve logic
         try {
             ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
             HttpSession session = attributes.getRequest().getSession(true);
             Booking booking = (Booking) session.getAttribute("booking_to_reserve");
+
             if(bookingServices.saveBooking(booking)){
                 if (paymentServices.createAndSavePayment(cardNumber,cvv,holder,month_exp,year_exp,booking))
                     return "redirect:/booking";

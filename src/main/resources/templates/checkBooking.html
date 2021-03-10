@@ -29,7 +29,7 @@
                     </div>
                     <div th:if="${dateToday_session != null}" class="form-group">
                         <label class="label" for="from">CHECK IN</label>
-                        <input type="date" class="form-control" name="from" id="from_ses" th:value="${dateToday_session}" th:min="${dateToday_session}" required>
+                        <input type="date" class="form-control" name="from" id="from_ses" th:value="${dateToday_session}" th:min="${dateToday}" required>
                     </div>
 
                     <div th:if="${dateTomorrow_session == null}" class="form-group">
@@ -38,7 +38,7 @@
                     </div>
                     <div th:if="${dateTomorrow_session != null}" class="form-group">
                         <label class="label" for="to">CHECK OUT</label>
-                        <input type="date" class="form-control" name="to" id="to_ses" th:min="${dateTomorrow_session}" required
+                        <input type="date" class="form-control" name="to" id="to_ses" th:min="${dateTomorrow}" required
                                th:value="${dateTomorrow_session}">
                     </div>
 
