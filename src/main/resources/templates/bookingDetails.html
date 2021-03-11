@@ -64,7 +64,11 @@
 
                         <h4>Precio Total: $<span id="precioTotal" th:name="precioTotal" th:text="${cost_wout_extras}"></span> </h4>
 
-                        <button type="submit" class="btn btn-warning" style="float: right;">Go to Payment</button>
+                        <div class="d-flex justify-content-between">
+                            <a class="btn btn-info" th:href="@{|/booking|}">Search again</a>
+
+                            <button type="submit" class="btn btn-warning" style="float: right;">Go to Payment</button>
+                        </div>
                     </form>
                 </div>
             </div>
