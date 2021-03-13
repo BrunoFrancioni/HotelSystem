@@ -8,10 +8,10 @@ jQuery(document).ready(function() {
         const actual = parseFloat($('#precioTotal').text());
 
         if($(this).is(':checked')) {
-            $('#precioTotal').text(parseFloat(actual + valor));
+            $('#precioTotal').text(currency(actual).add(currency(valor)));
             $('this').val('true');
         } else {
-            $('#precioTotal').text(parseFloat(actual - valor));
+            $('#precioTotal').text(currency(actual).subtract(currency(valor)));
             $('this').val('false');
         }
     });
@@ -21,10 +21,10 @@ jQuery(document).ready(function() {
         const actual = parseFloat($('#precioTotal').text());
 
         if($(this).is(':checked')) {
-            $('#precioTotal').text(parseFloat(actual + valor));
+            $('#precioTotal').text(currency(actual).add(currency(valor)));
             $('this').val('true');
         } else {
-            $('#precioTotal').text(parseFloat(actual - valor));
+            $('#precioTotal').text(currency(actual).subtract(currency(valor)));
             $('this').val('false');
         }
     });
@@ -34,10 +34,10 @@ jQuery(document).ready(function() {
         const actual = parseFloat($('#precioTotal').text());
 
         if($(this).is(':checked')) {
-            $('#precioTotal').text(parseFloat(actual + valor));
+            $('#precioTotal').text(currency(actual).add(currency(valor)));
             $('this').val('true');
         } else {
-            $('#precioTotal').text(parseFloat(actual - valor));
+            $('#precioTotal').text(currency(actual).subtract(currency(valor)));
             $('this').val('false');
         }
     });
