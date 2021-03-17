@@ -52,7 +52,13 @@
                         <input required readonly type="text" th:value="${booking_det_obj.getCreated_at()}" class="form-control" id="created_at" >
                     </div>
 
-                    <button type="submit" class="btn btn-warning"><i class="fas fa-sign-in-alt"></i>Cancel </button>
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-sign-in-alt"></i>Cancel Booking</button>
+                </form>
+                <form>
+                    <div>
+                        <form action="#" th:action="@{/booking}" method="get" enctype="multipart/form-data">
+                                <button type="submit" class="btn btn-primary">Back</button>
+                    </div>
                 </form>
             </div>
         </div>

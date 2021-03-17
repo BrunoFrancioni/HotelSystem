@@ -33,11 +33,6 @@
             </ul>
 
            <div th:if="${session.usersession != null}" class="d-flex flex-row">
-               <form th:action="@{/setting}" method="get">
-                   <input hidden th:value="${session.usersession.get().getId()}" id="id_user">
-                   <button type="submit" class="btn btn-light"><i class="fas fa-sliders-h"></i></button>
-               </form>
-
                <form th:action="@{/logout}" method="post" class="ml-2">
                    <button type="submit" class="btn btn-danger"><i class="fas fa-sign-out-alt"></i></button>
                </form>
