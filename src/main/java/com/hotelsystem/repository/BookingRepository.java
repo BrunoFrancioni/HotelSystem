@@ -28,7 +28,7 @@ public interface BookingRepository extends JpaRepository<Booking,Long> {
             "((:from BETWEEN b.check_in AND b.check_out) OR "+
             "(:to BETWEEN b.check_in AND b.check_out) OR " +
             "(:from <= b.check_in AND :to >= b.check_out)))) ORDER BY r.occupancy,r.price")
-    Page<Room> checkAvailableRoomsPageable(Pageable pageable, @Param("from") Date fromDate, @Param("to") Date toDate, @Param("guests") Integer guestsInteger);
+    Page<Room> checkAvailableRoomsPageable(@Param("from") Date fromDate, @Param("to") Date toDate, @Param("guests") Integer guestsInteger, Pageable pageable);
 
     @Query("SELECT b FROM Booking b WHERE b.room.id_room = :id_room AND " +
             "((:from BETWEEN b.check_in AND b.check_out) OR "+

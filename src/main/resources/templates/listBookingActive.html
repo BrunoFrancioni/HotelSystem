@@ -33,7 +33,8 @@
                 <th>COST</th>
                 <th>CHECK IN</th>
                 <th>CHECK OUT</th>
-                <th>OPTIONS</th>
+                <th>CANCEL</th>
+                <th>DETAILS</th>
             </tr>
             </thead>
 
@@ -43,10 +44,16 @@
                 <td th:text="${booking.cost}"></td>
                 <td th:text="${booking.check_in}"></td>
                 <td th:text="${booking.check_out}">
-                <td style="width:50px;" align="center">
-                    <form th:if="${session.usersession != null}" action="#" th:action="@{/cancelBooking}" method="post" enctype="multipart/form-data">
+                <td style="width:40px;" align="center">
+                    <form action="#" th:action="@{/cancelBooking}" method="post" enctype="multipart/form-data">
                         <input hidden th:value="${booking.id_booking}" name="id_booking" id="id_booking">
                         <button type="submit" class="btn btn-danger">Cancel</button>
+                    </form>
+                </td>
+                <td style="width:100px;" align="center">
+                    <form action="#" th:action="@{/details}" method="get" enctype="multipart/form-data">
+                        <input hidden th:value="${booking.id_booking}" name="id_booking_det" id="id_booking_det">
+                        <button type="submit" class="btn btn-warning">Details</button>
                     </form>
                 </td>
             </tr>
@@ -81,9 +88,16 @@
 </div>
 <div th:if="${param.error_excep}" class="alert alert-danger" role="alert">
     Error por excepcion
+
 </div>
 <div th:if="${param.success}" class="alert alert-info" role="alert">
-    Reserva cancelada
+    <h4 th:text="${session.withdraw_msg}"></h4>
 </div>
+<form action="#" th:action="@{/booking}" method="get" enctype="multipart/form-data">
+    <div>
+        <button type="submit" class="btn btn-primary">Back</button>
+    </div>
+
+</form>
 </body>
 </html>

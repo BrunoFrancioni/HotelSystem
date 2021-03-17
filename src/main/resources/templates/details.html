@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+
+    <!--JQUERY-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    <!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="static/css/index.css" th:href="@{/css/userRegister.css}">
+</head>
+<body>
+<div class="container">
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+                <form class="col-12" th:action="@{/cancelBooking}" method="post" enctype="multipart/form-data">
+                    <input hidden th:value="${booking_det_obj.getId_booking()}" name="id_booking" id="id_booking">
+                    <div class="form-group">
+                        <label for="free_can">Free Cancellation?</label>
+                        <input required readonly type="text" th:if="${booking_det_obj.getFree_cancellation()}" th:value="YES" class="form-control" id="free_can" name="free_can">
+                        <input required readonly type="text" th:unless="${booking_det_obj.getFree_cancellation()}" th:value="NO" class="form-control" id="free_can" name="free_can">
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="room_name">Room</label>
+                        <input required readonly type="text" th:value="${booking_det_obj.getRoom().getName()}" class="form-control" id="room_name" name="room_name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="cost">Cost</label>
+                        <input required readonly type="number" th:value="${booking_det_obj.getCost()}" class="form-control" id="cost" name="cost">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="check_in">Check In</label>
+                        <input required readonly type="text" th:value="${booking_det_obj.getCheck_in()}" class="form-control" id="check_in" name="check_in">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="check_out">Check Out</label>
+                        <input required readonly type="text" th:value="${booking_det_obj.getCheck_out()}" class="form-control" id="check_out" name="check_out">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="created_at"></label>
+                        <input required readonly type="text" th:value="${booking_det_obj.getCreated_at()}" class="form-control" id="created_at" >
+                    </div>
+
+                    <button type="submit" class="btn btn-warning"><i class="fas fa-sign-in-alt"></i>Cancel </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

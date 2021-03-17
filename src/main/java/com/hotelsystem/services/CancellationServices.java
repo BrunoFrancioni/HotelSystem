@@ -44,7 +44,7 @@ public class CancellationServices {
                 return false;
             }
         } catch (Exception e){
-            System.out.println("WAFASF");
+            System.out.println("Excepcion generada al calcular los dias");
             return false;
         }
     }
@@ -77,6 +77,17 @@ public class CancellationServices {
         } catch (Exception e){
             System.out.println(e.getMessage());
             return false;
+        }
+    }
+
+    public String costWithdraw(String id_booking){
+        Booking booking = findBookingById(id_booking);
+
+        if(booking.getFree_cancellation()){
+            return "Booking cancelled. 100% of the value has been refunded: "+booking.getCost();
+        } else {
+            double ochentaPC= booking.getCost()*0.8;
+            return "Booking cancelled. 80% of the value has been refunded: "+ochentaPC;
         }
     }
 }

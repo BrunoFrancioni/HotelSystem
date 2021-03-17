@@ -48,7 +48,7 @@ public class BookingServices {
     }
 
     public Page<Room> getAvailable(Pageable pageable, Date from, Date to, Integer guests) {
-        return bookingRepository.checkAvailableRoomsPageable(pageable,from,to,guests);
+        return bookingRepository.checkAvailableRoomsPageable(from,to,guests,pageable);
     }
 
     public Optional<Booking> findBookingById(Long id_booking){
